@@ -1,1 +1,0 @@
-# kato_assistant
