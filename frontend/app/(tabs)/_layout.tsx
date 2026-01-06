@@ -1,6 +1,7 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
-import '../../global.css';
+// Correct path based on your image: Root global.css
+import '../../global.css'; 
 
 import { HapticTab } from '@/components/haptic-tab';
 import { IconSymbol } from '@/components/ui/icon-symbol';
@@ -13,9 +14,14 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        // Figma Primary Blue Color
+        tabBarActiveTintColor: '#007AFF', 
         headerShown: false,
         tabBarButton: HapticTab,
+        tabBarStyle: {
+          backgroundColor: '#F5F5F7',
+          borderTopColor: 'rgba(0, 0, 0, 0.08)',
+        }
       }}>
       <Tabs.Screen
         name="index"
