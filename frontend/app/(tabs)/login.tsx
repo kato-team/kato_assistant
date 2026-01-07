@@ -1,156 +1,118 @@
-// app/(tabs)/login.tsx
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-// import "../../global.css"
-import { Pressable, SafeAreaView, Text, View } from 'react-native';
+import { Pressable, SafeAreaView, Text, View, Image, Dimensions, StyleSheet } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import { LinearGradient } from 'expo-linear-gradient';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
+const { width } = Dimensions.get('window');
 
 export default function LoginScreen() {
-  const handleGoogleLogin = (): void => {
-    console.log('Google Login Pressed');
-  };
-
-  const handleMicrosoftLogin = (): void => {
-    console.log('Microsoft Login Pressed');
-  };
-
-  const handleAppleLogin = (): void => {
-    console.log('Apple Login Pressed');
-  };
-
-  const handleEmailLogin = (): void => {
-    console.log('Email Login Pressed');
-  };
+  
+  const PremiumLoginButton = ({ title, icon, onPress }: { title: string, icon: React.ReactNode, onPress: () => void }) => (
+    <View className="mb-4 w-full">
+      <Pressable
+        onPress={onPress}
+        style={({ pressed }) => [{ transform: [{ scale: pressed ? 0.98 : 1 }] }]}
+        className="bg-white/95 rounded-[22px] flex-row items-center px-6 py-[18px] border border-white/50"
+        // Button shadow for depth
+        style={styles.buttonShadow}
+      >
+        <View className="w-6 items-start">
+          {icon}
+        </View>
+        <Text className="flex-1 text-center text-[16px] font-semibold text-[#1C1C1E] pr-6">
+          {title}
+        </Text>
+      </Pressable>
+    </View>
+  );
 
   return (
-    <SafeAreaView className="flex-1 bg-background">
+    <SafeAreaView className="flex-1 bg-[#FBFBFD]">
       <StatusBar style="dark" />
       
-      <View className="flex-1 px-6 justify-center">
-        {/* Logo Circle */}
-        <View className="items-center mb-8">
-          <View 
-            className="w-20 h-20 bg-primary rounded-full items-center justify-center mb-4"
-            style={{
-              shadowColor: '#007AFF',
-              shadowOffset: { width: 0, height: 4 },
-              shadowOpacity: 0.25,
-              shadowRadius: 12,
-              elevation: 8,
-            }}
-          >
-            <Text className="text-4xl font-bold text-white">K</Text>
+      {/* Mesh Background (Premium feel) */}
+      <View className="absolute top-[-100] left-[-50] opacity-20">
+        <LinearGradient colors={['#007AFF', 'transparent']} style={{ width: 300, height: 300, borderRadius: 150 }} />
+      </View>
+      <View className="absolute bottom-[-50] right-[-50] opacity-10">
+        <LinearGradient colors={['#4CD964', 'transparent']} style={{ width: 250, height: 250, borderRadius: 125 }} />
+      </View>
+
+      <View className="flex-1 px-9 justify-between py-14">
+        
+        {/* Logo Section - Pushed further down with mt-24 */}
+        <View className="items-center mt-24">
+          <View style={styles.floatingLogoShadow}>
+            <LinearGradient
+              colors={['#3B82F6', '#2563EB']} // Vibrant Blue Gradient
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
+              className="w-24 h-24  items-center justify-center"
+            >
+              <Text className="text-5xl font-bold text-white tracking-tighter shadow-sm">K</Text>
+            </LinearGradient>
           </View>
           
-          <Text className="text-2xl font-bold text-text-primary font-inter mb-1">
+          <Text className="text-[42px] font-bold text-[#1C1C1E] mt-8 tracking-tighter">
             Kato
           </Text>
-          <Text className="text-sm text-text-secondary font-inter">
+          <Text className="text-[17px] text-[#86868b] font-medium">
             Your AI Business Assistant
           </Text>
         </View>
 
-        {/* Login Buttons */}
-        <View className="space-y-3">
-          {/* Google Button */}
-          <Pressable
-            onPress={handleGoogleLogin}
-            className="flex-row items-center bg-white rounded-xl px-5 py-4 border border-border-medium active:scale-[0.98]"
-            style={{
-              shadowColor: '#000',
-              shadowOffset: { width: 0, height: 2 },
-              shadowOpacity: 0.06,
-              shadowRadius: 8,
-              elevation: 3,
-            }}
-          >
-            <View className="w-5 h-5 mr-4">
-              <Text className="text-base">
-                <View className="w-5 h-5 rounded-full bg-[#4285F4] items-center justify-center">
-                  <Text className="text-white text-xs font-bold">G</Text>
-                </View>
-              </Text>
-            </View>
-            <Text className="flex-1 text-center text-base font-semibold text-text-primary font-inter mr-5">
-              Continue with Google
-            </Text>
-          </Pressable>
+        {/* Buttons Section - Only 2 Buttons */}
+        <View className="w-full">
+          <PremiumLoginButton 
+            title="Continue with Google" 
+            onPress={() => {}}
+            // Use your local asset path here
+            icon={<Image source={require('../../assets/images/login/google.png')} style={{ width: 20, height: 20 }} />}
+          />
 
-          {/* Microsoft Button */}
-          <Pressable
-            onPress={handleMicrosoftLogin}
-            className="flex-row items-center bg-white rounded-xl px-5 py-4 border border-border-medium active:scale-[0.98]"
-            style={{
-              shadowColor: '#000',
-              shadowOffset: { width: 0, height: 2 },
-              shadowOpacity: 0.06,
-              shadowRadius: 8,
-              elevation: 3,
-            }}
-          >
-            <View className="w-5 h-5 mr-4">
-              <View className="flex-row flex-wrap w-5 h-5">
-                <View className="w-2 h-2 bg-[#F25022]" />
-                <View className="w-2 h-2 bg-[#7FBA00]" />
-                <View className="w-2 h-2 bg-[#00A4EF]" />
-                <View className="w-2 h-2 bg-[#FFB900]" />
-              </View>
-            </View>
-            <Text className="flex-1 text-center text-base font-semibold text-text-primary font-inter mr-5">
-              Continue with Microsoft
-            </Text>
-          </Pressable>
-
-          {/* Apple Button */}
-          <Pressable
-            onPress={handleAppleLogin}
-            className="flex-row items-center bg-white rounded-xl px-5 py-4 border border-border-medium active:scale-[0.98]"
-            style={{
-              shadowColor: '#000',
-              shadowOffset: { width: 0, height: 2 },
-              shadowOpacity: 0.06,
-              shadowRadius: 8,
-              elevation: 3,
-            }}
-          >
-            <View className="w-5 h-5 mr-4">
-              <Text className="text-xl">🍎</Text>
-            </View>
-            <Text className="flex-1 text-center text-base font-semibold text-text-primary font-inter mr-5">
-              Continue with Apple
-            </Text>
-          </Pressable>
-
-          {/* Email Button */}
-          <Pressable
-            onPress={handleEmailLogin}
-            className="flex-row items-center bg-white rounded-xl px-5 py-4 border border-border-medium active:scale-[0.98]"
-            style={{
-              shadowColor: '#000',
-              shadowOffset: { width: 0, height: 2 },
-              shadowOpacity: 0.06,
-              shadowRadius: 8,
-              elevation: 3,
-            }}
-          >
-            <View className="w-5 h-5 mr-4">
-              <Text className="text-xl">📧</Text>
-            </View>
-            <Text className="flex-1 text-center text-base font-semibold text-text-primary font-inter mr-5">
-              Continue with Email
-            </Text>
-          </Pressable>
+          <PremiumLoginButton 
+            title="Continue with Email" 
+            onPress={() => {}}
+            icon={<MaterialCommunityIcons name="email-outline" size={24} color="#636366" />}
+          />
         </View>
 
-        {/* Terms Text */}
-        <View className="mt-8 px-4">
-          <Text className="text-xs text-text-tertiary text-center font-inter leading-5">
-            By continuing, you agree to Kato's{' '}
-            <Text className="text-primary font-semibold">Terms of Service</Text>
-            {' '}and{' '}
-            <Text className="text-primary font-semibold">Privacy Policy</Text>
+        {/* Footer Section */}
+        <View>
+          <Text className="text-[13px] text-[#86868b] text-center leading-5 px-6">
+            By continuing, you agree to Kato's{'\n'}
+            <Text className="text-[#007AFF] font-semibold">Terms of Service</Text>
+            <Text> and </Text>
+            <Text className="text-[#007AFF] font-semibold">Privacy Policy</Text>
           </Text>
         </View>
+
       </View>
     </SafeAreaView>
   );
 }
+
+// Custom styles for the "Floating" shadow effect
+const styles = StyleSheet.create({
+  floatingLogoShadow: {
+    shadowColor: "#2563EB",
+    shadowOffset: {
+      width: 0,
+      height: 12, // Increased height for floating effect
+    },
+    shadowOpacity: 0.35,
+    shadowRadius: 16,
+    elevation: 15, // High elevation for Android depth
+  },
+  buttonShadow: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.06,
+    shadowRadius: 10,
+    elevation: 4,
+  }
+});
