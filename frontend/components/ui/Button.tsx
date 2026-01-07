@@ -1,55 +1,68 @@
-// components/ui/Button.tsx
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  TextStyle,
-  TouchableOpacity,
-  ViewStyle
-} from 'react-native';
+import { Pressable, Text, View, StyleSheet, Platform } from 'react-native';
+import { BlurView } from 'expo-blur'; // Make sure to install: npx expo install expo-blur
 
 interface ButtonProps {
   title: string;
   onPress: () => void;
-  style?: ViewStyle;
-  textStyle?: TextStyle;
+  icon?: React.ReactNode;
 }
 
-export default function Button({ 
-  title, 
-  onPress, 
-  style, 
-  textStyle 
-}: ButtonProps) {
+export default function Button({ title, onPress, icon }: ButtonProps) {
   return (
-    <TouchableOpacity 
-      style={[styles.button, style]} 
-      onPress={onPress}
-      activeOpacity={0.85}
-    >
-      <Text style={[styles.text, textStyle]}>{title}</Text>
-    </TouchableOpacity>
+    /* 1. Shadow Wrapper: Yeh niche ki taraf deep shadow dega */
+    <View style={styles.shadowContainer} className="mb-6 w-full px-1">
+      <Pressable
+        onPress={onPress}
+        style={({ pressed }) => [
+          { transform: [{ scale: pressed ? 0.96 : 1 }] },
+          styles.buttonContainer
+        ]}
+      >
+        {/* 2. Glass Effect: BlurView se frosted glass look aayega */}
+        <BlurView
+          intensity={60}
+          tint="light"
+          className="flex-row items-center px-6 py-[18px] rounded-[22px] border border-white/60 overflow-hidden"
+          style={styles.glassEffect}
+        >
+          {icon && (
+            <View className="w-6 items-start">
+              {icon}
+            </View>
+          )}
+          <Text 
+            className="flex-1 text-center text-[16px] font-semibold text-[#1C1C1E]"
+            style={icon ? { paddingRight: 24 } : {}}
+          >
+            {title}
+          </Text>
+        </BlurView>
+      </Pressable>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  button: {
-    backgroundColor: '#1E5A8E',
-    paddingVertical: 18,
-    paddingHorizontal: 50,
-    borderRadius: 30,
-    alignItems: 'center',
-    justifyContent: 'center',
-    shadowColor: '#1E5A8E',
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.35,
-    shadowRadius: 12,
-    elevation: 8,
+  shadowContainer: {
+    // Is container par shadow lagane se glass effect kharab nahi hota
+    ...Platform.select({
+      ios: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 10 },
+        shadowOpacity: 0.18,
+        shadowRadius: 15,
+      },
+      android: {
+        elevation: 12,
+      },
+    }),
   },
-  text: {
-    color: '#FFFFFF',
-    fontSize: 18,
-    fontWeight: '700',
-    letterSpacing: 0.5,
+  buttonContainer: {
+    borderRadius: 22,
+    backgroundColor: 'rgba(255, 255, 255, 0.7)', // Semi-transparent for Glass effect
   },
+  glassEffect: {
+    width: '100%',
+  }
 });

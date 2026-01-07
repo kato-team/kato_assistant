@@ -111,4 +111,31 @@
     shadow-radius: 4px;
     elevation: 4;
   }
+
+  /* Real Glassmorphism Shadow */
+  .glass-shadow {
+    shadow-color: #000;
+    shadow-offset: 0px 8px;
+    shadow-opacity: 0.15;
+    shadow-radius: 12px;
+    elevation: 10;
+  }
+  
+  /* Logo Floating Depth */
+  .logo-float-depth {
+    shadow-color: #2563EB;
+    shadow-offset: 0px 15px;
+    shadow-opacity: 0.4;
+    shadow-radius: 20px;
+    elevation: 20;
+  }
+
+  /* Extra Visible Premium Shadow */
+  .btn-premium-depth {
+    shadow-color: #000;
+    shadow-offset: 0px 6px;
+    shadow-opacity: 0.15; /* Opacity thodi badha di hai taaki dikhe */
+    shadow-radius: 12px;
+    elevation: 8; /* Android par depth badhane ke liye */
+  }
 }

@@ -1,45 +1,41 @@
-// components/onboarding/onboardingData.ts
-
 export interface OnboardingSlide {
   id: string;
-  emoji: string;
   title: string;
   description: string;
   bgGradient: [string, string];
-  imagePath: any;
+  imageSource: any;
 }
+
+// Image se uthaya gaya premium gradient: Deep Blue to Dark Navy
+const SHARED_GRADIENT: [string, string] = ['#1E40AF', '#172554']; 
 
 export const onboardingSlides: OnboardingSlide[] = [
   {
+    id: '0',
+    title: 'AI Chat',
+    description: 'Ask me about your business and emails, calls and everything.',
+    bgGradient: SHARED_GRADIENT,
+    imageSource: require('./image/ai_chat.jpeg'), // Make sure you have this image
+  },
+  {
     id: '1',
-    emoji: '📞',
     title: 'Calling Assistant',
-    description: 'I will handle calls',
-    bgGradient: ['#4facfe', '#00f2fe'],
-    imagePath: require('../../assets/images/react-logo.png'),
+    description: 'I will handle your calls with professional care.',
+    bgGradient: SHARED_GRADIENT,
+    imageSource: require('./image/call.jpeg'),
   },
   {
     id: '2',
-    emoji: '📧',
     title: 'Email Assistant',
-    description: 'I will handle emails',
-    bgGradient: ['#f093fb', '#f5576c'],
-    imagePath: require('../../assets/images/react-logo.png'),
+    description: 'Never miss an important email again.',
+    bgGradient: SHARED_GRADIENT,
+    imageSource: require('./image/email.jpeg'),
   },
   {
     id: '3',
-    emoji: '📅',
     title: 'Tasks & Meetings',
-    description: 'I will handle tasks and meetings',
-    bgGradient: ['#a8edea', '#fed6e3'],
-    imagePath: require('../../assets/images/react-logo.png'),
-  },
-  {
-    id: '4',
-    emoji: '⚡',
-    title: 'Smart Automation',
-    description: 'AI-powered smart automation',
-    bgGradient: ['#43e97b', '#38f9d7'],
-    imagePath: require('../../assets/images/react-logo.png'),
+    description: 'Organize your schedule effortlessly.',
+    bgGradient: SHARED_GRADIENT,
+    imageSource: require('./image/meeting.jpeg'),
   },
 ];

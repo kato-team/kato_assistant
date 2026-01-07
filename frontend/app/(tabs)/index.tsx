@@ -13,7 +13,7 @@ export default function OnboardingScreen() {
 
   const handleGetStarted = (): void => {
   
-    router.replace('/(tabs)/login');     
+    router.replace('/login');   
   };
 
   return (
@@ -21,9 +21,6 @@ export default function OnboardingScreen() {
       <StatusBar style="dark" />
       
       {/* Header */}
-      <View style={styles.header}>
-        <Text style={styles.logo}>Kato</Text>
-      </View>
 
       {/* Slider - Takes most space */}
       <View style={styles.sliderContainer}>
