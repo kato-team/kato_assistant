@@ -113,17 +113,25 @@ export default function OnboardingSlider() {
           });
 
           return (
-            <Animated.View
-              key={index}
-              style={{
-                height: 8,
-                width: dotWidth,
-                borderRadius: 4,
-                backgroundColor: dotColor,
-                marginHorizontal: 4,
-              }}
-            />
-          );
+  <Animated.View
+    key={index}
+    style={{
+      height: 8,
+      width: 8, // Fixed width rakhein
+      borderRadius: 4,
+      backgroundColor: dotColor,
+      marginHorizontal: 4,
+      transform: [{
+        // Width ki jagah ScaleX use karein (Native Driver support karta hai)
+        scaleX: scrollX.interpolate({
+          inputRange,
+          outputRange: [1, 2, 1], // 1x se 3x lamba hoga dot
+          extrapolate: 'clamp',
+        })
+      }]
+    }}
+  />
+);
         })}
       </View>
     </View>
