@@ -9,7 +9,7 @@ export const validate = (schema: ZodObject<any>) => (req: Request, res: Response
       params: req.params,
     });
     next();
-  } catch (e: any) {
-    return res.status(400).json(e.errors);
+  } catch (e: unknown) {
+    return res.status(400).json(e);
   }
 };

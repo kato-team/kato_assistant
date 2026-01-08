@@ -5,7 +5,6 @@ import { globalMiddleware } from './middlewares';
 const app = express();
 
 // Middleware
-app.use(express.json());
 
 globalMiddleware(app);
 
