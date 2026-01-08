@@ -1,14 +1,26 @@
 import React from 'react';
-import { SafeAreaView, Text, View, Image, StyleSheet } from 'react-native';
+import { SafeAreaView, Text, View, Image, StyleSheet,TouchableOpacity, Platform } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import Button from '@/components/ui/Button'; // Import path adjust as per your structure
+import Button from '@/components/ui/Button'; 
+import { useRouter } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function LoginScreen() {
+const router = useRouter();
   return (
     <SafeAreaView className="flex-1 bg-[#FBFBFD]">
       <StatusBar style="dark" />
+      {/* 4. Back Button added here */}
+      <View className="absolute top-14 left-6 z-10">
+        <TouchableOpacity 
+          onPress={() => router.back()}
+          className="w-10 h-10 items-center justify-center bg-white rounded-full shadow-sm border border-gray-100"
+        >
+          <Ionicons name="chevron-back" size={24} color="#1C1C1E" />
+        </TouchableOpacity>
+      </View>
       
       {/* Mesh Background */}
       <View className="absolute top-[-100] left-[-50] opacity-20">
@@ -21,37 +33,40 @@ export default function LoginScreen() {
       <View className="flex-1 px-9 justify-between py-14">
         
         {/* Logo Section */}
-        <View className="items-center mt-24">
-          <View style={styles.floatingLogoShadow}>
-            <LinearGradient
-              colors={['#3B82F6', '#2563EB']}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 1 }}
-              className="w-24 h-24 rounded-full items-center justify-center logo-inner-glow"
-            >
-              <Text className="text-5xl font-bold text-white tracking-tighter">KP</Text>
-            </LinearGradient>
-          </View>
-          
-          <Text className="text-[42px] font-bold text-[#1C1C1E] mt-8 tracking-tighter">
-            Kato
-          </Text>
-          <Text className="text-[17px] text-secondary-apple font-medium">
-            Your AI Business Assistant
-          </Text>
-        </View>
+<View className="items-center mt-24">
+  <View style={styles.logoWrapper}>
+    <LinearGradient
+      colors={['#09a3da', '#285fd8']} // Image se match karta hua vibrant light blue gradient
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
+      // Inline style for perfect rounding
+      style={{ width: 96, height: 96, borderRadius: 48 }} 
+      className="items-center justify-center border border-white/30"
+    >
+      <Text className="text-5xl font-bold text-white tracking-tighter shadow-sm">K</Text>
+    </LinearGradient>
+  </View>
+  
+  <Text className="text-[42px] font-bold text-[#1C1C1E] mt-8 tracking-tighter">
+    Kato
+  </Text>
+  <Text className="text-[17px] text-secondary-apple font-medium">
+    Your AI Business Assistant
+  </Text>
+</View>
 
         {/* Buttons Section - Using Refactored Button Component */}
         <View className="w-full mt-4"> 
   <Button 
     title="Continue with Google" 
     onPress={() => {}}
+    variant="glass"
     icon={<Image source={require('../assets/images/login/google.png')} style={{ width: 22, height: 22 }} />}
   />
   <Button 
     title="Continue with Email" 
     onPress={() => {}}
-    icon={<MaterialCommunityIcons name="email-outline" size={24} color="#636366" />}
+    icon={<MaterialCommunityIcons name="email-outline" size={24} color="#ffffff" />}
   />
 </View>
 
@@ -70,6 +85,26 @@ export default function LoginScreen() {
 }
 
 const styles = StyleSheet.create({
+
+  logoWrapper: {
+    // Smooth & Soft Shadow logic
+    ...Platform.select({
+      ios: {
+        shadowColor: "#007AFF",
+        shadowOffset: { width: 0, height: 10 },
+        shadowOpacity: 0.2, // Image jaisi halki shadow
+        shadowRadius: 20,
+      },
+      android: {
+        elevation: 12,
+        shadowColor: "#007AFF",
+      },
+    }),
+    // Wrapper ko bhi rounded rakhein taaki shadow sahi dikhe
+    borderRadius: 48, 
+    backgroundColor: 'white', // Android elevation ke liye background zaroori hai
+  },
+
   floatingLogoShadow: {
     shadowColor: "#2563EB",
     shadowOffset: { width: 0, height: 12 },
@@ -77,4 +112,6 @@ const styles = StyleSheet.create({
     shadowRadius: 16,
     elevation: 15,
   }
+
+  
 });

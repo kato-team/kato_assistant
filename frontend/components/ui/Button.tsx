@@ -1,68 +1,80 @@
 import React from 'react';
 import { Pressable, Text, View, StyleSheet, Platform } from 'react-native';
-import { BlurView } from 'expo-blur'; // Make sure to install: npx expo install expo-blur
+import { LinearGradient } from 'expo-linear-gradient';
 
 interface ButtonProps {
   title: string;
   onPress: () => void;
   icon?: React.ReactNode;
+  variant?: 'primary' | 'glass'; // Diffrent places ke liye options
 }
 
-export default function Button({ title, onPress, icon }: ButtonProps) {
+export default function Button({ title, onPress, icon, variant = 'primary' }: ButtonProps) {
+  // Image se liya gaya Deep Blue Gradient
+  const primaryGradient: [string, string] = ['#09a3da', '#285fd8'];
+  const glassGradient: [string, string] = ['#FFFFFF', '#ffffff'];
+  
   return (
-    /* 1. Shadow Wrapper: Yeh niche ki taraf deep shadow dega */
-    <View style={styles.shadowContainer} className="mb-6 w-full px-1">
+    <View style={styles.shadowWrapper} className="w-full mb-4">
+
+
+
       <Pressable
         onPress={onPress}
         style={({ pressed }) => [
-          { transform: [{ scale: pressed ? 0.96 : 1 }] },
-          styles.buttonContainer
+          { transform: [{ scale: pressed ? 0.97 : 1 }], opacity: pressed ? 0.9 : 1 }
         ]}
       >
-        {/* 2. Glass Effect: BlurView se frosted glass look aayega */}
-        <BlurView
-          intensity={60}
-          tint="light"
-          className="flex-row items-center px-6 py-[18px] rounded-[22px] border border-white/60 overflow-hidden"
-          style={styles.glassEffect}
+        <LinearGradient
+          colors={variant === 'primary' ? primaryGradient : ['rgba(255, 255, 255, 0.8)', 'rgba(255, 255, 255, 0.4)']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
+          style={styles.gradientBg}
+          className="flex-row items-center px-6 py-4 border border-white/20"
         >
           {icon && (
-            <View className="w-6 items-start">
+            <View className="mr-3">
               {icon}
             </View>
           )}
+          
           <Text 
-            className="flex-1 text-center text-[16px] font-semibold text-[#1C1C1E]"
-            style={icon ? { paddingRight: 24 } : {}}
+            className={`flex-1 text-center text-[17px] font-bold tracking-tight ${
+              variant === 'primary' ? 'text-white' : 'text-[#1C1C1E]'
+            }`}
           >
             {title}
           </Text>
-        </BlurView>
+        </LinearGradient>
       </Pressable>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  shadowContainer: {
-    // Is container par shadow lagane se glass effect kharab nahi hota
+  shadowWrapper: {
     ...Platform.select({
       ios: {
         shadowColor: '#000',
-        shadowOffset: { width: 0, height: 10 },
-        shadowOpacity: 0.18,
-        shadowRadius: 15,
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.08,
+        shadowRadius: 10,
       },
       android: {
-        elevation: 12,
+        elevation: 4,
       },
     }),
   },
-  buttonContainer: {
-    borderRadius: 22,
-    backgroundColor: 'rgba(255, 255, 255, 0.7)', // Semi-transparent for Glass effect
+
+  gradientBg: {
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  glassEffect: {
+  pressable: {
     width: '100%',
+    borderRadius: 10,
+    overflow: 'hidden',
+    zIndex: 1, // Button ko shadow ke upar lane ke liye
   }
 });

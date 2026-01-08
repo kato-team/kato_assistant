@@ -13,7 +13,7 @@ export default function OnboardingScreen() {
 
   const handleGetStarted = (): void => {
   
-    router.replace('/login');   
+    router.push('/login'); 
   };
 
   return (
@@ -32,6 +32,7 @@ export default function OnboardingScreen() {
         <Button 
           title="Get Started" 
           onPress={handleGetStarted}
+          variant="primary"
         />
       </View>
     </SafeAreaView>
