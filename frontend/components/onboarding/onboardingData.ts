@@ -7,7 +7,7 @@ export interface OnboardingSlide {
 }
 
 // Image se uthaya gaya premium gradient: Deep Blue to Dark Navy
-const SHARED_GRADIENT: [string, string] = ['#1E40AF', '#172554']; 
+const SHARED_GRADIENT: [string, string] = ['#09a3da', '#285fd8']; 
 
 export const onboardingSlides: OnboardingSlide[] = [
   {
@@ -15,7 +15,7 @@ export const onboardingSlides: OnboardingSlide[] = [
     title: 'AI Chat',
     description: 'Ask me about your business and emails, calls and everything.',
     bgGradient: SHARED_GRADIENT,
-    imageSource: require('./image/ai_chat.jpeg'), // Make sure you have this image
+    imageSource: require('./image/Chat.png'),
   },
   {
     id: '1',
