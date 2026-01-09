@@ -1,11 +1,11 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react'; // useState add kiya
 import 'react-native-reanimated';
 import * as SplashScreen from 'expo-splash-screen';
+import CustomSplashScreen from '../components/SplashScreen'; // Naya component
 
-// Fonts Import
 import { 
   useFonts, 
   Inter_400Regular, 
@@ -15,11 +15,9 @@ import {
 } from '@expo-google-fonts/inter';
 
 import { useColorScheme } from '@/hooks/use-color-scheme';
-
-// Global CSS Import
 import '../global.css';
 
-// Prevent splash screen from auto-hiding
+// Default Splash ko prevent karein
 SplashScreen.preventAutoHideAsync();
 
 export const unstable_settings = {
@@ -28,8 +26,8 @@ export const unstable_settings = {
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
+  const [isAnimationFinished, setIsAnimationFinished] = useState(false); // Custom state
 
-  // Load Figma Fonts
   const [loaded, error] = useFonts({
     'Inter': Inter_400Regular,
     'Inter-Medium': Inter_500Medium,
@@ -37,7 +35,6 @@ export default function RootLayout() {
     'Inter-Bold': Inter_700Bold,
   });
 
-  // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
     if (error) throw error;
   }, [error]);
@@ -52,13 +49,20 @@ export default function RootLayout() {
     return null;
   }
 
+  // Jab tak custom animation khatam na ho, SplashScreen component dikhao
+  if (!isAnimationFinished) {
+    return <CustomSplashScreen onFinish={() => setIsAnimationFinished(true)} />;
+  }
+
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
+      <Stack 
+      screenOptions={{
+        headerShown: false,
+      }}>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-        {/* Agar login screen alag hai toh yaha add karein */}
-        <Stack.Screen name="login" options={{ headerShown: false }} />
+        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
       </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>

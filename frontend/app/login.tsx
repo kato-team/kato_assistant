@@ -18,7 +18,7 @@ import { Ionicons } from '@expo/vector-icons';
 import Button from '@/components/ui/Button'; 
 import OTPVerificationCard from '@/components/ui/OTPVerificationCard';
 import AlertModal from '@/components/ui/AlertModal';
-import { useRouter } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 
 export default function LoginScreen() {
   const router = useRouter();
@@ -116,6 +116,7 @@ export default function LoginScreen() {
   return (
     <SafeAreaView className="flex-1 bg-[#FBFBFD]">
       <StatusBar style="dark" />
+      {/* <Stack.Screen options={{ headerShown: false }} /> */}
       
       {/* Back Button */}
       <View className="absolute top-14 left-6 z-10">
@@ -153,7 +154,7 @@ export default function LoginScreen() {
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
                 style={{ width: 96, height: 96, borderRadius: 48 }} 
-                className="items-center justify-center border border-white/30"
+                className="items-center justify-center border border-blue-200 border-8"
               >
                 <Text className="text-5xl font-bold text-white tracking-tighter shadow-sm">K</Text>
               </LinearGradient>
@@ -165,11 +166,11 @@ export default function LoginScreen() {
           </View>
 
           {/* Email Login Form */}
-          <View className="mb-6">
+          <View className="mb-2">
             {/* Email Input */}
-            <View className="mb-4">
+            <View className="mb-2">
               <Text className="text-sm font-medium text-[#6E6E73] mb-2">Email Address</Text>
-              <View className="bg-white border border-[#E5E5EA] rounded-xl px-4 py-3.5 shadow-sm">
+              <View className="bg-white border border-[#E5E5EA] rounded-xl px-2 py-2 shadow-sm">
                 <TextInput
                   placeholder="your.email@example.com"
                   placeholderTextColor="#AEAEB2"
@@ -183,9 +184,9 @@ export default function LoginScreen() {
             </View>
 
             {/* Password Input */}
-            <View className="mb-4">
+            <View className="mb-2">
               <Text className="text-sm font-medium text-[#6E6E73] mb-2">Password</Text>
-              <View className="bg-white border border-[#E5E5EA] rounded-xl px-4 py-3.5 shadow-sm flex-row items-center">
+              <View className="bg-white border border-[#E5E5EA] rounded-xl px-2 py-2 shadow-sm flex-row items-center">
                 <TextInput
                   placeholder="Enter password"
                   placeholderTextColor="#AEAEB2"
@@ -205,9 +206,9 @@ export default function LoginScreen() {
             </View>
 
             {/* Confirm Password Input */}
-            <View className="mb-4">
+            <View className="mb-2">
               <Text className="text-sm font-medium text-[#6E6E73] mb-2">Confirm Password</Text>
-              <View className="bg-white border border-[#E5E5EA] rounded-xl px-4 py-3.5 shadow-sm flex-row items-center">
+              <View className="bg-white border border-[#E5E5EA] rounded-xl px-2 py-2 shadow-sm flex-row items-center">
                 <TextInput
                   placeholder="Re-enter password"
                   placeholderTextColor="#AEAEB2"
@@ -235,7 +236,7 @@ export default function LoginScreen() {
           </View>
 
           {/* Divider */}
-          <View className="flex-row items-center mb-6">
+          <View className="flex-row items-center mb-2">
             <View className="flex-1 h-px bg-[#E5E5EA]" />
             <Text className="px-4 text-[#86868b] text-sm">or</Text>
             <View className="flex-1 h-px bg-[#E5E5EA]" />
@@ -250,7 +251,7 @@ export default function LoginScreen() {
           />
 
           {/* Terms Text */}
-          <Text className="text-[13px] text-[#86868b] text-center leading-5 px-6 mt-6">
+          <Text className="text-[13px] text-[#86868b] text-center leading-5 px-6 mt-4">
             By continuing, you agree to Kato's{'\n'}
             <Text className="text-[#007AFF] font-semibold">Terms of Service</Text>
             <Text> and </Text>

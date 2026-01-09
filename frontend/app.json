@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "demoApp",
+    "name": "Kato",
     "slug": "demoApp",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -13,30 +13,20 @@
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/images/android-icon-foreground.png",
-        "backgroundImage": "./assets/images/android-icon-background.png",
-        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+        "backgroundColor": "#F5F5F7",
+        "foregroundImage": "./assets/images/android-icon-foreground.png"
       },
-      "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
-    },
-    "web": {
-      "output": "static",
-      "favicon": "./assets/images/favicon.png",
-      "bundler": "metro"
+      "edgeToEdgeEnabled": true
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
-          "imageWidth": 200,
-          "resizeMode": "contain",
-          "backgroundColor": "#ffffff",
+          "image": "",
+          "backgroundColor": "#F5F5F7",
           "dark": {
-            "backgroundColor": "#000000"
+            "backgroundColor": "#F5F5F7"
           }
         }
       ],

@@ -20,7 +20,7 @@ export default function OTPVerificationCard({
   onClose,
   onResend,
 }: OTPVerificationCardProps) {
-  const [otp, setOtp] = useState(['', '', '', '', '', '']);
+  const [otp, setOtp] = useState(['', '', '', '']);
   const [isVerifying, setIsVerifying] = useState(false);
   const inputRefs = useRef<Array<TextInput | null>>([]);
   
@@ -72,12 +72,12 @@ export default function OTPVerificationCard({
     setTimeout(() => {
       setIsVerifying(false);
       onVerify(otpCode);
-      setOtp(['', '', '', '', '', '']); // Reset
+      setOtp(['', '', '', '']); // Reset
     }, 1500);
   };
 
   const handleResend = () => {
-    setOtp(['', '', '', '', '', '']);
+    setOtp(['', '', '', '']);
     inputRefs.current[0]?.focus();
     onResend();
     
@@ -146,7 +146,7 @@ export default function OTPVerificationCard({
 
               {/* Subtitle */}
               <Text className="text-white/90 text-sm text-center mb-6 leading-5">
-                We've sent a 6-digit code to{'\n'}
+                We've sent a 4-digit code to{'\n'}
                 <Text className="font-bold">{email}</Text>
               </Text>
 
