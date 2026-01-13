@@ -1,3 +1,4 @@
+// app/complete-profile.tsx
 import React, { useState } from 'react';
 import { 
   View, 
@@ -13,36 +14,35 @@ import {
   Modal
 } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Ionicons } from '@expo/vector-icons'; // Camera aur Icons ke liye
+import { Ionicons } from '@expo/vector-icons';
 import InputField from '../components/ui/InputField';
-import Button from '../components/ui/Button'; // Aapka existing button
-import PhoneVerificationSection  from '../components/auth/PhoneVerificationSection'
-
+import Button from '../components/ui/Button';
+import PhoneVerificationSection from '../components/auth/PhoneVerificationSection';
 
 export default function CompleteProfile() {
   const router = useRouter();
   const [teamSize, setTeamSize] = useState(1);
   const [category, setCategory] = useState('');
-const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const BUSINESS_CATEGORIES = [
-  "Retail Shop",
-  "Restaurant",
-  "Real Estate",
-  "Salon/Beauty",
-  "Coaching/Classes",
-  "Freelancer (Designer/Writer)",
-  "Consultancy",
-  "E-commerce",
-  "Healthcare",
-  "Technology",
-  "Other"
-];
+    "Retail Shop",
+    "Restaurant",
+    "Real Estate",
+    "Salon/Beauty",
+    "Coaching/Classes",
+    "Freelancer (Designer/Writer)",
+    "Consultancy",
+    "E-commerce",
+    "Healthcare",
+    "Technology",
+    "Other"
+  ];
 
   const handleContinue = () => {
-    // Yaha data save karne ka logic aayega
     console.log("Profile Completed");
-    router.replace('/(tabs)'); // Profile complete hone ke baad dashboard/home par bhejein
+    // Dashboard par redirect karo (tabs ke andar nahi)
+    router.replace('/dashboard');
   };
 
   return (
@@ -55,7 +55,6 @@ const [showModal, setShowModal] = useState(false);
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 40 }}
         >
-
           <View className="px-6 mt-20">
             {/* Header */}
             <Text className="text-2xl font-bold text-[#1C1C1E] mb-2">
@@ -66,17 +65,16 @@ const [showModal, setShowModal] = useState(false);
             </Text>
 
             {/* Top Progress Bars */}
-          <View className="flex-row my-4 gap-2">
-            <View className="flex-1 h-1 bg-[#09a3da] rounded-full" />
-            <View className="flex-1 h-1 bg-[#09a3da] rounded-full" />
-          </View>
+            <View className="flex-row my-4 gap-2">
+              <View className="flex-1 h-1 bg-[#09a3da] rounded-full" />
+              <View className="flex-1 h-1 bg-[#09a3da] rounded-full" />
+            </View>
 
-
-          {/* Info Box */}
+            {/* Info Box */}
             <View className="bg-white p-4 rounded-3xl mb-8 border border-gray-100" style={styles.shadow}>
-               <Text className="text-gray-500 text-[13px] leading-5">
-                 We'll use your phone number to send important notifications and verify your identity.
-               </Text>
+              <Text className="text-gray-500 text-[13px] leading-5">
+                We'll use your phone number to send important notifications and verify your identity.
+              </Text>
             </View>
 
             {/* Profile Image Section */}
@@ -85,9 +83,8 @@ const [showModal, setShowModal] = useState(false);
                 <View className="h-28 w-28 bg-[#3b82f6] rounded-full items-center justify-center border-4 border-white">
                   <Ionicons name="camera" size={32} color="white" />
                 </View>
-                {/* Small edit badge */}
                 <View className="absolute bottom-0 right-0 bg-white p-2 rounded-full border border-gray-100">
-                   <Ionicons name="pencil" size={14} color="#09a3da" />
+                  <Ionicons name="pencil" size={14} color="#09a3da" />
                 </View>
               </TouchableOpacity>
             </View>
@@ -111,70 +108,66 @@ const [showModal, setShowModal] = useState(false);
               placeholder="Acme Inc." 
             />
 
-            {/* Category Dropdown (Visual Only) */}
             {/* Business Category Section */}
-<View className="mb-5">
-  <Text className="text-[#1C1C1E] text-[15px] font-bold mb-3 ml-1">
-    Business Category
-  </Text>
+            <View className="mb-5">
+              <Text className="text-[#1C1C1E] text-[15px] font-bold mb-3 ml-1">
+                Business Category
+              </Text>
 
-  {/* Dropdown Button */}
-  <TouchableOpacity 
-    onPress={() => setShowModal(true)}
-    style={styles.shadow} 
-    className="bg-white rounded-2xl h-[56px] flex-row items-center justify-between px-4"
-  >
-    <Text className={`font-medium text-[16px] ${category ? 'text-[#1C1C1E]' : 'text-gray-500'}`}>
-      {category || "Select category"}
-    </Text>
-    <Ionicons name="chevron-down" size={20} color="#1C1C1E" />
-  </TouchableOpacity>
+              <TouchableOpacity 
+                onPress={() => setShowModal(true)}
+                style={styles.shadow} 
+                className="bg-white rounded-2xl h-[56px] flex-row items-center justify-between px-4"
+              >
+                <Text className={`font-medium text-[16px] ${category ? 'text-[#1C1C1E]' : 'text-gray-500'}`}>
+                  {category || "Select category"}
+                </Text>
+                <Ionicons name="chevron-down" size={20} color="#1C1C1E" />
+              </TouchableOpacity>
 
-  {/* Dropdown Modal */}
-  <Modal
-    visible={showModal}
-    transparent={true}
-    animationType="fade"
-    onRequestClose={() => setShowModal(false)}
-  >
-    <TouchableOpacity 
-      style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)' }} 
-      activeOpacity={1} 
-      onPress={() => setShowModal(false)}
-    >
-      <View className="flex-1 justify-center px-6">
-        <TouchableWithoutFeedback>
-          <View className="bg-white rounded-2xl max-h-[500px] overflow-hidden">
-            {/* Header */}
-            <View className="p-4 border-b border-gray-100 bg-gray-50">
-              <Text className="text-center font-bold text-gray-700">Select Category</Text>
-            </View>
-            
-            {/* List */}
-            <FlatList
-              data={BUSINESS_CATEGORIES}
-              keyExtractor={(item) => item}
-              showsVerticalScrollIndicator={false}
-              renderItem={({ item }) => (
-                <TouchableOpacity
-                  className={`p-4 border-b border-gray-100 ${category === item ? 'bg-blue-50' : ''}`}
-                  onPress={() => {
-                    setCategory(item);
-                    setShowModal(false);
-                  }}
+              {/* Dropdown Modal */}
+              <Modal
+                visible={showModal}
+                transparent={true}
+                animationType="fade"
+                onRequestClose={() => setShowModal(false)}
+              >
+                <TouchableOpacity 
+                  style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)' }} 
+                  activeOpacity={1} 
+                  onPress={() => setShowModal(false)}
                 >
-                  <Text className={`text-[16px] ${category === item ? 'font-bold text-[#09a3da]' : 'text-[#1C1C1E]'}`}>
-                    {item}
-                  </Text>
+                  <View className="flex-1 justify-center px-6">
+                    <TouchableWithoutFeedback>
+                      <View className="bg-white rounded-2xl max-h-[500px] overflow-hidden">
+                        <View className="p-4 border-b border-gray-100 bg-gray-50">
+                          <Text className="text-center font-bold text-gray-700">Select Category</Text>
+                        </View>
+                        
+                        <FlatList
+                          data={BUSINESS_CATEGORIES}
+                          keyExtractor={(item) => item}
+                          showsVerticalScrollIndicator={false}
+                          renderItem={({ item }) => (
+                            <TouchableOpacity
+                              className={`p-4 border-b border-gray-100 ${category === item ? 'bg-blue-50' : ''}`}
+                              onPress={() => {
+                                setCategory(item);
+                                setShowModal(false);
+                              }}
+                            >
+                              <Text className={`text-[16px] ${category === item ? 'font-bold text-[#09a3da]' : 'text-[#1C1C1E]'}`}>
+                                {item}
+                              </Text>
+                            </TouchableOpacity>
+                          )}
+                        />
+                      </View>
+                    </TouchableWithoutFeedback>
+                  </View>
                 </TouchableOpacity>
-              )}
-            />
-          </View>
-        </TouchableWithoutFeedback>
-      </View>
-    </TouchableOpacity>
-  </Modal>
-</View>
+              </Modal>
+            </View>
 
             <InputField 
               label="Work Email (Optional)" 
@@ -207,8 +200,8 @@ const [showModal, setShowModal] = useState(false);
                 <Text className="text-xl font-bold text-[#1C1C1E]">{teamSize}</Text>
 
                 <TouchableOpacity 
-                   onPress={() => setTeamSize(teamSize + 1)}
-                   className="w-10 h-10 items-center justify-center bg-gray-100 rounded-full"
+                  onPress={() => setTeamSize(teamSize + 1)}
+                  className="w-10 h-10 items-center justify-center bg-gray-100 rounded-full"
                 >
                   <Ionicons name="add" size={20} color="#1C1C1E" />
                 </TouchableOpacity>
@@ -231,7 +224,6 @@ const [showModal, setShowModal] = useState(false);
                 icon={<Ionicons name="checkmark" size={20} color="white" />}
               />
             </View>
-
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
