@@ -23,7 +23,7 @@ export default function AutomationScreen() {
     badge = ''
   }: any) => (
     <TouchableOpacity 
-      className="bg-white rounded-[18px] p-4 mb-3"
+      className="bg-white rounded-md p-4 mb-3"
       style={styles.cardShadow}
       activeOpacity={0.7}
       onPress={onPress}
@@ -31,7 +31,7 @@ export default function AutomationScreen() {
       <View className="flex-row items-center justify-between">
         <View className="flex-row items-center flex-1">
           <View 
-            className="w-12 h-12 rounded-[14px] items-center justify-center mr-3"
+            className="w-12 h-12 rounded-md items-center justify-center mr-3"
             style={{ backgroundColor: iconBg }}
           >
             <Ionicons name={icon} size={24} color={iconColor} />
@@ -59,7 +59,7 @@ export default function AutomationScreen() {
 
   const PromptTemplate = ({ title, prompt, onSelect }: any) => (
     <TouchableOpacity 
-      className="bg-gray-50 rounded-[14px] p-3 mb-2 border border-gray-100"
+      className="bg-gray-50 rounded-md p-3 mb-2 border border-gray-100"
       activeOpacity={0.7}
       onPress={() => onSelect(prompt)}
     >
@@ -76,7 +76,7 @@ export default function AutomationScreen() {
       <SettingsHeader title="Automation Rules" onBack={() => router.back()} />
 
       <ScrollView 
-        className="flex-1 px-5" 
+        className="flex-1 px-3.5" 
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 40 }}
       >
@@ -86,7 +86,7 @@ export default function AutomationScreen() {
             Emergency Controls
           </Text>
           
-          <View className="bg-white rounded-[20px] px-4 py-1" style={styles.cardShadow}>
+          <View className="bg-white rounded-md px-4 py-1" style={styles.cardShadow}>
             <View className="flex-row items-center justify-between py-4">
               <View className="flex-row items-center flex-1">
                 <View className="w-12 h-12 rounded-[14px] bg-red-50 items-center justify-center mr-3">
@@ -111,7 +111,7 @@ export default function AutomationScreen() {
           </View>
 
           {aiPaused && (
-            <View className="mt-3 bg-red-50 rounded-[16px] p-4 border border-red-100">
+            <View className="mt-3 bg-red-50 rounded-md p-4 border border-red-100">
               <View className="flex-row items-start">
                 <Ionicons name="warning" size={18} color="#EF4444" />
                 <Text className="text-[12px] text-red-700 ml-2 flex-1 leading-5">
@@ -130,7 +130,7 @@ export default function AutomationScreen() {
 
   <TouchableOpacity
     activeOpacity={0.8}
-    style={{ borderRadius: 20, overflow: 'hidden' }}
+    style={{ borderRadius: 12, overflow: 'hidden' }}
   >
     <LinearGradient
       colors={['#a855f7', '#db2777']}
@@ -156,7 +156,7 @@ export default function AutomationScreen() {
       </View>
 
       {/* Info Box */}
-      <View className="bg-white/20 rounded-[14px] p-3 mb-3">
+      <View className="bg-white/20 rounded-md p-3 mb-3">
         <Text className="text-white/80 text-[11px] mb-2">
           What happens?
         </Text>
@@ -184,7 +184,7 @@ export default function AutomationScreen() {
       </View>
 
       {/* CTA */}
-      <View className="bg-white rounded-[14px] py-3 items-center">
+      <View className="bg-white rounded-md py-3 items-center">
         <View className="flex-row items-center">
           <Ionicons name="play" size={16} color="#8B5CF6" />
           <Text className="text-purple-600 text-[14px] font-bold ml-2">
@@ -204,7 +204,7 @@ export default function AutomationScreen() {
             Custom AI Prompts
           </Text>
           
-          <View className="bg-white rounded-[20px] p-4" style={styles.cardShadow}>
+          <View className="bg-white rounded-md p-4" style={styles.cardShadow}>
             <View className="flex-row items-center mb-3">
               <Ionicons name="create" size={20} color="#3B82F6" />
               <Text className="text-[15px] font-semibold text-gray-900 ml-2">
@@ -221,7 +221,7 @@ export default function AutomationScreen() {
                 When customer asks:
               </Text>
               <TextInput
-                className="bg-gray-50 rounded-[12px] px-3 py-2.5 text-[13px] text-gray-900 border border-gray-100"
+                className="bg-gray-50 rounded-md px-3 py-2.5 text-[13px] text-gray-900 border border-gray-100"
                 placeholder="e.g., What are your office hours?"
                 placeholderTextColor="#9CA3AF"
                 multiline
@@ -233,7 +233,7 @@ export default function AutomationScreen() {
                 AI should respond:
               </Text>
               <TextInput
-                className="bg-gray-50 rounded-[12px] px-3 py-2.5 text-[13px] text-gray-900 border border-gray-100"
+                className="bg-gray-50 rounded-md px-3 py-2.5 text-[13px] text-gray-900 border border-gray-100"
                 placeholder="e.g., Our office is open Monday to Friday, 9 AM to 6 PM"
                 placeholderTextColor="#9CA3AF"
                 multiline
@@ -244,7 +244,7 @@ export default function AutomationScreen() {
             </View>
 
             <TouchableOpacity 
-              className="bg-blue-500 rounded-[12px] py-2.5 items-center"
+              className="bg-blue-500 rounded-sm py-2.5 items-center"
               activeOpacity={0.8}
             >
               <Text className="text-white text-[13px] font-semibold">Add Prompt</Text>
@@ -321,7 +321,7 @@ export default function AutomationScreen() {
         </View>
 
         {/* Info Box */}
-        <View className="mt-6 bg-blue-50 rounded-[18px] p-4 border border-blue-100">
+        <View className="mt-6 bg-blue-50 rounded-md p-4 border border-blue-100">
           <View className="flex-row items-start">
             <Ionicons name="information-circle" size={20} color="#3B82F6" />
             <View className="flex-1 ml-2">
@@ -345,7 +345,7 @@ const styles = {
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.06,
-    shadowRadius: 8,
-    elevation: 3,
+    shadowRadius: 7,
+    elevation: 0.5,
   }
 };

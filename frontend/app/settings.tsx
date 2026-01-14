@@ -1,254 +1,207 @@
-// app/settings.tsx
-
 import React from 'react';
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
-import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
-import { routePatternToRegex } from 'expo-router/build/fork/getStateFromPath-forks';
+
+// Helper Component for Menu Items
+const SettingItem = ({ 
+  icon, 
+  title, 
+  subtitle, 
+  iconBg, 
+  iconColor,
+  onPress,
+  isLast = false
+}: any) => (
+  <TouchableOpacity 
+    className={`flex-row items-center py-4 ${!isLast ? 'border-b border-gray-100' : ''}`}
+    activeOpacity={0.7}
+    onPress={onPress}
+  >
+    {/* Icon Container */}
+    <View 
+      className="w-12 h-12 rounded-xl items-center justify-center mr-4"
+      style={{ backgroundColor: iconBg }}
+    >
+      <Ionicons name={icon} size={22} color={iconColor} />
+    </View>
+    
+    {/* Text Info */}
+    <View className="flex-1">
+      <Text className="text-[16px] font-bold text-gray-900 mb-0.5">
+        {title}
+      </Text>
+      <Text className="text-[12px] text-gray-400 font-medium">
+        {subtitle}
+      </Text>
+    </View>
+  </TouchableOpacity>
+);
 
 export default function SettingsScreen() {
   const router = useRouter();
 
-  const SettingItem = ({ 
-    icon, 
-    title, 
-    subtitle, 
-    iconBg = '#EFF6FF', 
-    iconColor = '#3B82F6',
-    isLast = false,
-    onPress,
-    showBadge = false,
-    badgeText = ''
-  }: any) => (
-    <TouchableOpacity 
-      className={`flex-row items-center justify-between py-4 ${!isLast ? 'border-b border-gray-50' : ''}`}
-      activeOpacity={0.6}
-      onPress={onPress}
-    >
-      <View className="flex-row items-center flex-1">
-        <View 
-          className="w-11 h-11 rounded-[14px] items-center justify-center mr-3.5"
-          style={{ backgroundColor: iconBg }}
-        >
-          <Ionicons name={icon} size={20} color={iconColor} />
-        </View>
-        
-        <View className="flex-1 pr-3">
-          <View className="flex-row items-center">
-            <Text className="text-[15px] font-semibold text-gray-900 mb-0.5">
-              {title}
-            </Text>
-            {showBadge && (
-              <View className="ml-2 bg-red-500 px-2 py-0.5 rounded-full">
-                <Text className="text-[9px] font-bold text-white">{badgeText}</Text>
-              </View>
-            )}
-          </View>
-          <Text className="text-[13px] text-gray-500 font-medium leading-4">
-            {subtitle}
-          </Text>
-        </View>
-      </View>
-      
-      <Ionicons name="chevron-forward" size={18} color="#C7C7CC" />
-    </TouchableOpacity>
-  );
-
-  const SectionHeader = ({ title }: { title: string }) => (
-    <Text className="text-[13px] font-semibold text-gray-500 uppercase tracking-wide mb-2.5 mt-6 px-1">
-      {title}
-    </Text>
-  );
-
   return (
-    <SafeAreaView className="flex-1 bg-[#F8F9FA]">
-      {/* Header */}
-      <View className="flex-row items-center justify-between px-5 pt-1 pb-3 bg-[#F8F9FA]">
+    <SafeAreaView className="flex-1 bg-[#F2F4F6]">
+      
+      {/* Header (Back Button Only) */}
+      <View className="px-6 pt-2 pb-4">
         <TouchableOpacity 
           onPress={() => router.back()}
-          className="w-9 h-9 items-center justify-center rounded-full"
-          activeOpacity={0.6}
+          className="w-10 h-10 bg-white items-center justify-center rounded-full shadow-sm"
+          style={styles.smallShadow}
         >
-          <Ionicons name="chevron-back" size={28} color="#3B82F6" />
+          <Ionicons name="chevron-back" size={24} color="#3B82F6" />
         </TouchableOpacity>
-        <Text className="text-[17px] font-semibold text-gray-900">Settings</Text>
-        <View className="w-9" />
       </View>
 
       <ScrollView 
-        className="flex-1" 
+        className="flex-1 px-5" 
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 40, paddingTop: 5 }}
+        contentContainerStyle={{ paddingBottom: 40 }}
       >
-        <View className="px-5">
+        
+        {/* ================= CARD 1: Profile + Main Options ================= */}
+        {/* Top Left is heavily rounded (100), others are normal (30) */}
+        <View 
+          style={[styles.cardShadow, { 
+            borderTopLeftRadius: 80, 
+            borderTopRightRadius: 15, 
+            borderBottomLeftRadius: 15, 
+            borderBottomRightRadius: 15 
+          }]} 
+          className="bg-white p-6 mb-6 relative"
+        >
+           {/* Pro Badge (Absolute Positioned) */}
+           <View className="absolute top-6 right-6">
+             <Text className="text-green-500 font-bold text-[11px]">• Pro User</Text>
+           </View>
+
+           {/* --- Profile Section --- */}
+           <View className="flex-row items-center mt-1 mb-8 ml-0">
+              {/* Avatar Area */}
+              <View className="mr-4 shadow-sm">
+                <View className="w-20 h-20 rounded-full bg-gray-200 border-4 border-gray-50 overflow-hidden">
+                  <Image 
+                    source={{ uri: 'https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg' }} 
+                    className="w-full h-full"
+                    resizeMode="cover"
+                  />
+                </View>
+              </View>
+
+              {/* Name & Edit Icon */}
+              <View className="flex-1 justify-center">
+                 <Text className="text-xl font-extrabold text-gray-900">John Deo</Text>
+                 <Text className="text-xs text-gray-400 underline decoration-gray-300 mb-1">
+                    johndeo@example.com
+                 </Text>
+              </View>
+
+              {/* Orange Edit Button */}
+              <TouchableOpacity className="w-9 h-9 bg-orange-50 rounded-full items-center justify-center border border-orange-100 mr-2">
+                  <Ionicons name="create-outline" size={18} color="#F97316" />
+              </TouchableOpacity>
+           </View>
+
+           {/* --- Divider Separator --- */}
+           <View className="h-[1px] bg-gray-100 w-full mb-2" />
+
+           {/* --- Options Section (Merged inside Card 1) --- */}
+           <View>
+              <SettingItem 
+                icon="options" // Square icon like "AI Config"
+                title="AI Configuration" 
+                subtitle="Voice, tone, Language Preferences"
+                iconBg="#FFF7ED" 
+                iconColor="#4B5563"
+                onPress={() => router.push('/settings/ai-config')}
+              />
+
+              <SettingItem 
+                icon="call" 
+                title="Call Settings" 
+                subtitle="Busy Calls, Voice preferences"
+                iconBg="#E0F2FE" 
+                iconColor="#0EA5E9"
+                onPress={() => router.push('/settings/call-settings')}
+              />
+
+              <SettingItem 
+                icon="git-network" // Represents Automation/Robot arm
+                title="Automation Rules" 
+                subtitle="Custom Prompts and Actions"
+                iconBg="#FEF9C3" 
+                iconColor="#CA8A04"
+                onPress={() => router.push('/settings/automation')}
+              />
+
+              <SettingItem 
+                icon="notifications" 
+                title="Notifications" 
+                subtitle="Alerts & summaries"
+                iconBg="#FFEDD5" 
+                iconColor="#F59E0B"
+                isLast={true} // Removes border for the last item in this group
+                onPress={() => router.push('/settings/notifications')}
+              />
+           </View>
+        </View>
+
+
+        {/* ================= CARD 2: Billing + Help + LOGOUT ================= */}
+        <View style={[styles.cardShadow, { borderRadius: 15 }]} className="bg-white px-5 py-2 mb-8">
           
-          {/* Profile Card */}
-          <View style={styles.cardShadow} className="bg-white rounded-[20px] p-6 mb-6 items-center relative">
-            {/* Pro Member Badge */}
-            <View className="absolute top-4 right-4 bg-green-50 px-3 py-1.5 rounded-full border border-green-200">
-              <Text className="text-[10px] font-bold text-green-600 uppercase tracking-wider">
-                Pro Member
-              </Text>
-            </View>
+          <SettingItem 
+            icon="wallet" 
+            title="Billing & Subscriptions" 
+            subtitle="Professional Plan"
+            iconBg="#ECFCCB" 
+            iconColor="#65A30D"
+            onPress={() => router.push('/settings/billing')}
+          />
 
-            {/* Profile Avatar */}
-            <LinearGradient
-              colors={['#3B82F6', '#2563EB']}
-              className="w-20 h-20 items-center justify-center mb-3"
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 1 }}
-              style={styles.avatarShadow}
-            >
-              <Text className="text-white text-3xl font-bold">JD</Text>
-            </LinearGradient>
+          <SettingItem 
+            icon="headset" 
+            title="Help & Support" 
+            subtitle="Help & Support about application"
+            iconBg="#FFE4E6" 
+            iconColor="#F43F5E"
+            onPress={() => router.push('/settings/help')}
+          />
 
-            {/* Name & Email */}
-            <Text className="text-[20px] font-bold text-gray-900 mb-1">
-              John Doe
-            </Text>
-            <Text className="text-[14px] text-gray-500 font-medium mb-5">
-              john@example.com
-            </Text>
-
-            {/* Edit Profile Button */}
+          {/* --- Logout Button (Moved INSIDE Card 2) --- */}
+          <View className="pt-2 pb-4 mt-2 border-t border-gray-100">
             <TouchableOpacity 
-              className="bg-gray-50 py-2.5 px-6 rounded-full flex-row items-center border border-gray-100"
-              activeOpacity={0.7}
-              onPress={() => router.push('/settings/profile')}
+              onPress={() => console.log("Logout")}
+              activeOpacity={0.6}
+              className="items-center justify-center py-2"
             >
-              <Ionicons name="pencil" size={14} color="#6B7280" />
-              <Text className="text-[13px] font-semibold text-gray-700 ml-2">
-                Edit Profile
-              </Text>
+              <Text className="text-red-500 font-bold text-[16px]">Logout</Text>
             </TouchableOpacity>
           </View>
 
-          {/* AI & Automation Section */}
-          <SectionHeader title="AI & Automation" />
-          <View style={styles.cardShadow} className="bg-white rounded-[20px] px-4 py-1 mb-1">
-            <SettingItem 
-              icon="hardware-chip" 
-              title="AI Configuration" 
-              subtitle="Voice, tone, language preferences"
-              iconBg="#EFF6FF"
-              iconColor="#3B82F6"
-              onPress={() => router.push('/settings/ai-config')}
-            />
-            <SettingItem 
-              icon="call" 
-              title="Call Settings" 
-              subtitle="Busy calls, voice preferences"
-              iconBg="#FEF2F2"
-              iconColor="#EF4444"
-              showBadge={true}
-              badgeText="NEW"
-              onPress={() => router.push('/settings/call-settings')}
-            />
-            <SettingItem 
-              icon="git-branch" 
-              title="Automation Rules" 
-              subtitle="Custom prompts & actions"
-              iconBg="#F5F3FF"
-              iconColor="#8B5CF6"
-              onPress={() => router.push('/settings/automation')}
-              isLast={true}
-            />
-          </View>
-
-          {/* Account & Data Section */}
-          <SectionHeader title="Account & Data" />
-          <View style={styles.cardShadow} className="bg-white rounded-[20px] px-4 py-1 mb-1">
-            <SettingItem 
-              icon="notifications" 
-              title="Notifications" 
-              subtitle="Alerts & summaries"
-              iconBg="#FFFBEB"
-              iconColor="#F59E0B"
-              onPress={() => router.push('/settings/notifications')}
-            />
-            <SettingItem 
-              icon="link" 
-              title="Integrations" 
-              subtitle="Gmail, Calendar, Phone"
-              iconBg="#ECFEFF"
-              iconColor="#06B6D4"
-              onPress={() => router.push('/settings/integrations')}
-            />
-            <SettingItem 
-              icon="shield-checkmark" 
-              title="Privacy & Security" 
-              subtitle="Data protection, 2FA"
-              iconBg="#F0FDF4"
-              iconColor="#10B981"
-              onPress={() => router.push('/settings/privacy')}
-            />
-            <SettingItem 
-              icon="card" 
-              title="Billing & Subscription" 
-              subtitle="Professional Plan"
-              iconBg="#FEF2F2"
-              iconColor="#EF4444"
-              onPress={() => router.push('/settings/billing')}
-              isLast={true}
-            />
-          </View>
-
-          {/* Support Section */}
-          <SectionHeader title="Support" />
-          <View style={styles.cardShadow} className="bg-white rounded-[20px] px-4 py-1 mb-8">
-            <SettingItem 
-              icon="help-circle" 
-              title="Help & Support" 
-              subtitle="FAQs, tutorials, contact"
-              iconBg="#F5F3FF"
-              iconColor="#8B5CF6"
-              onPress={() => router.push('/settings/help')}
-              isLast={true}
-            />
-          </View>
-
-          {/* Logout Button */}
-          <TouchableOpacity 
-            style={styles.cardShadow}
-            className="flex-row items-center justify-center bg-white rounded-[20px] py-3.5 mb-3"
-            activeOpacity={0.7}
-            onPress={() => {
-              // Handle logout logic
-              console.log('Logout pressed');
-            }}
-          >
-            <Ionicons name="log-out-outline" size={20} color="#EF4444" />
-            <Text className="ml-2 text-[15px] font-semibold text-red-500">
-              Logout
-            </Text>
-          </TouchableOpacity>
-
-          <Text className="text-center text-[13px] text-gray-400 font-medium">
-            Version 1.0.0
-          </Text>
-
         </View>
+
       </ScrollView>
     </SafeAreaView>
   );
 }
 
-const styles = {
+const styles = StyleSheet.create({
   cardShadow: {
+    shadowColor: '#9CA3AF',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    elevation: 0.5, 
+  },
+  smallShadow: {
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.06,
-    shadowRadius: 8,
-    elevation: 3,
-  },
-  avatarShadow: {
-    shadowColor: '#3B82F6',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 6,
-    borderRadius: 20,
+    shadowOpacity: 0.05,
+    shadowRadius: 1,
+    elevation: 0.5,
   }
-};
+});

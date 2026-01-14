@@ -1,36 +1,22 @@
 // app/settings/call-settings.tsx
 
 import React, { useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Switch } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, Switch, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import { LinearGradient } from 'expo-linear-gradient'; // npx expo install expo-linear-gradient
 import SettingsHeader from '../../components/settings/SettingsHeader';
 
 export default function CallSettingsScreen() {
   const router = useRouter();
-  const [busyCalls, setBusyCalls] = useState(true);
+  const [busyCalls, setBusyCalls] = useState(false);
   const [selectedVoice, setSelectedVoice] = useState('female');
   const [selectedTone, setSelectedTone] = useState('professional');
-  const [selectedLanguage, setSelectedLanguage] = useState('english');
+  const [selectedLanguage, setSelectedLanguage] = useState('English');
 
-  const voiceOptions = [
-    { id: 'male', label: 'Male Voice', icon: 'man' },
-    { id: 'female', label: 'Female Voice', icon: 'woman' },
-  ];
-
-  const toneOptions = [
-    { id: 'professional', label: 'Professional', icon: 'briefcase' },
-    { id: 'friendly', label: 'Friendly', icon: 'happy' },
-    { id: 'casual', label: 'Casual', icon: 'chatbubbles' },
-  ];
-
-  const languageOptions = [
-    { id: 'hindi', label: 'Hindi', flag: '🇮🇳' },
-    { id: 'english', label: 'English', flag: '🇬🇧' },
-    { id: 'hinglish', label: 'Hinglish', flag: '🔀' },
-    { id: 'gujarati', label: 'Gujarati', flag: '🇮🇳' },
-  ];
+  // Blue Gradient for active states
+  const activeGradient = ['#0082ff', '#0082ff'];
 
   return (
     <SafeAreaView className="flex-1 bg-[#F8F9FA]">
@@ -39,186 +25,144 @@ export default function CallSettingsScreen() {
       <ScrollView 
         className="flex-1 px-5" 
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 40 }}
       >
-        {/* Feature Banner */}
-        <View className="bg-white rounded-[20px] px-4 py-4" style={styles.cardShadow}>
-          <View className="flex-row items-center mb-2">
-            <View className="bg-white w-10 h-10 rounded-full items-center justify-center mr-3"style={styles.cardShadow}>
-              <Ionicons name="call" size={20} color="blue" />
-            </View>
+        {/* Main Unified Card */}
+        <View className="bg-white rounded-md p-6 mt-4 shadow-sm" style={styles.cardShadow}>
+          
+          {/* 1. Busy Calls Handling Section */}
+          <View className="flex-row items-center justify-between mb-4">
             <View className="flex-1">
-              <Text className="text-black text-[16px] font-bold">Smart Call Assistant</Text>
-              <Text className="text-black text-[12px] mt-0.5">Let AI handle your calls professionally</Text>
+              <Text className="text-[14px] font-bold text-gray-800">Busy Calls Handling</Text>
+              <Text className="text-[12px] text-gray-400">AI answers when you're busy</Text>
             </View>
+            <Switch
+              value={busyCalls}
+              onValueChange={setBusyCalls}
+              trackColor={{ false: '#E5E7EB', true: '#007AFF' }}
+              thumbColor={'#FFF'}
+              ios_backgroundColor="#E5E7EB"
+            />
           </View>
-        </View>
 
-        {/* Busy Calls Toggle */}
-        <View className="mt-6">
-          <Text className="text-[13px] font-semibold text-gray-500 uppercase tracking-wide mb-3 px-1">
-            Call Handling
-          </Text>
-          <View className="bg-white rounded-[20px] px-4 py-1" style={styles.cardShadow}>
-            <View className="flex-row items-center justify-between py-4">
-              <View className="flex-row items-center flex-1">
-                <View className="w-11 h-11 rounded-[14px] bg-red-50 items-center justify-center mr-3">
-                  <Ionicons name="call-outline" size={20} color="#EF4444" />
-                </View>
-                <View className="flex-1">
-                  <Text className="text-[15px] font-semibold text-gray-900">
-                    Handle Busy Calls
-                  </Text>
-                  <Text className="text-[12px] text-gray-500 mt-0.5">
-                    AI takes calls when you're busy
-                  </Text>
-                </View>
-              </View>
-              <Switch
-                value={busyCalls}
-                onValueChange={setBusyCalls}
-                trackColor={{ false: '#E5E7EB', true: '#FCA5A5' }}
-                thumbColor={busyCalls ? '#EF4444' : '#F3F4F6'}
-              />
-            </View>
-          </View>
-        </View>
+          {/* Divider Line */}
+          <View className="h-[1px] bg-gray-100 w-full mb-6" />
 
-        {/* Voice Selection */}
-        <View className="mt-6">
-          <Text className="text-[13px] font-semibold text-gray-500 uppercase tracking-wide mb-3 px-1">
-            Voice Type
-          </Text>
-          <View className="bg-white rounded-[20px] p-4" style={styles.cardShadow}>
-            {voiceOptions.map((option, index) => (
-              <TouchableOpacity
-                key={option.id}
-                className={`flex-row items-center justify-between py-3.5 ${
-                  index < voiceOptions.length - 1 ? 'border-b border-gray-50' : ''
-                }`}
-                onPress={() => setSelectedVoice(option.id)}
-                activeOpacity={0.7}
+          {/* 2. Voice Selection */}
+          <View className="mb-6">
+            <Text className="text-[14px] font-bold text-gray-700 mb-3">Voice</Text>
+            <View className="flex-row justify-between">
+              {/* Male Button */}
+              <TouchableOpacity 
+                onPress={() => setSelectedVoice('male')}
+                className="w-[48%] h-14 rounded-sm overflow-hidden"
               >
-                <View className="flex-row items-center">
-                  <View className={`w-11 h-11 rounded-[14px] items-center justify-center mr-3 ${
-                    selectedVoice === option.id ? 'bg-blue-50' : 'bg-gray-50'
-                  }`}>
-                    <Ionicons 
-                      name={option.icon as any} 
-                      size={22} 
-                      color={selectedVoice === option.id ? '#3B82F6' : '#9CA3AF'} 
-                    />
-                  </View>
-                  <Text className={`text-[15px] font-semibold ${
-                    selectedVoice === option.id ? 'text-gray-900' : 'text-gray-600'
-                  }`}>
-                    {option.label}
-                  </Text>
-                </View>
-                
-                {selectedVoice === option.id && (
-                  <View className="w-6 h-6 rounded-full bg-blue-500 items-center justify-center">
-                    <Ionicons name="checkmark" size={16} color="white" />
+                {selectedVoice === 'male' ? (
+                  <LinearGradient colors={activeGradient} className="flex-1 flex-row items-center justify-center">
+                    <Text className="text-lg mr-2">👦</Text>
+                    <Text className="font-bold text-white">Male</Text>
+                  </LinearGradient>
+                ) : (
+                  <View className="flex-1 flex-row items-center justify-center bg-white border border-gray-100">
+                    <Text className="text-lg mr-2">👦</Text>
+                    <Text className="font-bold text-gray-400">Male</Text>
                   </View>
                 )}
               </TouchableOpacity>
-            ))}
-          </View>
-        </View>
 
-        {/* Tone Selection */}
-        <View className="mt-6">
-          <Text className="text-[13px] font-semibold text-gray-500 uppercase tracking-wide mb-3 px-1">
-            Conversation Tone
-          </Text>
-          <View className="bg-white rounded-[20px] p-3" style={styles.cardShadow}>
-            <View className="flex-row flex-wrap">
-              {toneOptions.map((option) => (
-                <TouchableOpacity
-                  key={option.id}
-                  className={`w-[31%] m-1 p-3 rounded-[14px] items-center border-2 ${
-                    selectedTone === option.id 
-                      ? 'border-purple-500 bg-purple-50' 
-                      : 'border-gray-100 bg-gray-50'
-                  }`}
-                  onPress={() => setSelectedTone(option.id)}
-                  activeOpacity={0.7}
-                >
-                  <Ionicons 
-                    name={option.icon as any} 
-                    size={24} 
-                    color={selectedTone === option.id ? '#8B5CF6' : '#9CA3AF'} 
-                  />
-                  <Text className={`text-[12px] font-semibold text-center mt-2 ${
-                    selectedTone === option.id ? 'text-purple-600' : 'text-gray-700'
-                  }`}>
-                    {option.label}
-                  </Text>
-                </TouchableOpacity>
-              ))}
+              {/* Female Button */}
+              <TouchableOpacity 
+                onPress={() => setSelectedVoice('female')}
+                className="w-[48%] h-14 rounded-sm overflow-hidden"
+              >
+                {selectedVoice === 'female' ? (
+                  <LinearGradient colors={activeGradient} className="flex-1 flex-row items-center justify-center">
+                    <Text className="text-lg mr-2">👧</Text>
+                    <Text className="font-bold text-white">Female</Text>
+                  </LinearGradient>
+                ) : (
+                  <View className="flex-1 flex-row items-center justify-center bg-gray-50">
+                    <Text className="text-lg mr-2">👧</Text>
+                    <Text className="font-bold text-gray-400">Female</Text>
+                  </View>
+                )}
+              </TouchableOpacity>
             </View>
           </View>
-        </View>
 
-        {/* Language Selection */}
-        <View className="mt-6">
-          <Text className="text-[13px] font-semibold text-gray-500 uppercase tracking-wide mb-3 px-1">
-            Language Preference
-          </Text>
-          <View className="bg-white rounded-[20px] p-3" style={styles.cardShadow}>
-            <View className="flex-row flex-wrap">
-              {languageOptions.map((option) => (
-                <TouchableOpacity
-                  key={option.id}
-                  className={`w-[46%] m-1 p-4 rounded-[16px] border-2 ${
-                    selectedLanguage === option.id 
-                      ? 'border-green-500 bg-green-50' 
-                      : 'border-gray-100 bg-gray-50'
-                  }`}
-                  onPress={() => setSelectedLanguage(option.id)}
-                  activeOpacity={0.7}
-                >
-                  <Text className="text-2xl mb-2 text-center">{option.flag}</Text>
-                  <Text className={`text-[14px] font-semibold text-center ${
-                    selectedLanguage === option.id ? 'text-green-600' : 'text-gray-700'
-                  }`}>
-                    {option.label}
-                  </Text>
-                </TouchableOpacity>
-              ))}
+          {/* 3. Tone Selection */}
+          <View className="mb-6">
+            <Text className="text-[14px] font-bold text-gray-700 mb-3">Tone</Text>
+            <View className="flex-row justify-between bg-gray-50 p-1 rounded-sm">
+              {['Professional', 'Friendly', 'Casual'].map((tone) => {
+                const isActive = selectedTone === tone.toLowerCase();
+                return (
+                  <TouchableOpacity 
+                    key={tone}
+                    onPress={() => setSelectedTone(tone.toLowerCase())}
+                    className="flex-1 h-10 rounded-sm overflow-hidden mx-0.5"
+                  >
+                    {isActive ? (
+                      <LinearGradient colors={activeGradient} className="flex-1 items-center justify-center">
+                        <Text className="text-[12px] font-bold text-white">{tone}</Text>
+                      </LinearGradient>
+                    ) : (
+                      <View className="flex-1 items-center justify-center">
+                        <Text className="text-[12px] font-bold text-gray-400">{tone}</Text>
+                      </View>
+                    )}
+                  </TouchableOpacity>
+                );
+              })}
             </View>
           </View>
-        </View>
 
-        {/* Save Button */}
+          {/* 4. Language Preference (Dropdown Style) */}
+          <View className="mb-2">
+            <Text className="text-[14px] font-bold text-gray-700 mb-3">Language Preference</Text>
+            <TouchableOpacity 
+              activeOpacity={0.7}
+              className="flex-row items-center justify-between bg-white px-4 py-4 rounded-sm border border-gray-100 shadow-sm"
+              style={styles.dropdownShadow}
+            >
+              <Text className="text-gray-700 font-medium">{selectedLanguage}</Text>
+              <Ionicons name="chevron-down" size={20} color="#000" />
+            </TouchableOpacity>
+          </View>
+
+           {/* Save Button */}
         <TouchableOpacity 
-          className="bg-red-500 rounded-[18px] py-4 mt-8"
+          className="mt-8 overflow-hidden rounded-sm"
           activeOpacity={0.8}
-          style={styles.buttonShadow}
         >
-          <Text className="text-white text-[16px] font-bold text-center">
-            Save Call Settings
-          </Text>
+          <LinearGradient colors={activeGradient} className="py-4">
+            <Text className="text-white text-[16px] font-bold text-center">
+              Save Call Settings
+            </Text>
+          </LinearGradient>
         </TouchableOpacity>
+
+        </View>
+
+       
 
       </ScrollView>
     </SafeAreaView>
   );
 }
 
-const styles = {
+const styles = StyleSheet.create({
   cardShadow: {
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.06,
-    shadowRadius: 8,
-    elevation: 3,
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.05,
+    shadowRadius: 7,
+    elevation: 0.5,
   },
-  buttonShadow: {
-    shadowColor: '#EF4444',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 6,
+  dropdownShadow: {
+    shadowColor: '#0000000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.03,
+    shadowRadius: 2,
+    elevation: 0.4,
   }
-};
+});
