@@ -1,3 +1,5 @@
+// components\ui\Header.tsx
+
 import React from "react";
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
@@ -8,7 +10,7 @@ interface HeaderProps {
   showBackButton?: boolean;
   showSettings?: boolean;
   onBackPress?: () => void;
-  onSettingsPress?: () => void;
+  onProfilePress?: () => void;
 }
 
 export default function Header({
@@ -16,7 +18,7 @@ export default function Header({
   showBackButton = false, 
   showSettings = true,
   onBackPress,
-  onSettingsPress,
+  onProfilePress,
 }: HeaderProps) {
   return (
     <View className="flex-row items-center justify-between px-4 pt-2 pb-3 bg-[#F8F9FA]">
@@ -71,7 +73,7 @@ export default function Header({
       {showSettings ? (
         <TouchableOpacity 
           className="w-11 h-11 rounded-[14px] bg-white items-center justify-center"
-          onPress={onSettingsPress}
+          onPress={onProfilePress}
           activeOpacity={0.7}
           style={{
             shadowColor: '#000',
