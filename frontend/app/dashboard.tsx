@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -22,13 +22,13 @@ export default function Dashboard() {
     <SafeAreaView className="flex-1 bg-[#F8F9FA]" edges={['top']}>
       <Header 
         showBackButton={false}
-        onSettingsPress={() => console.log('Settings pressed')}
+        onProfilePress={() => router.push('/settings')} 
       />
 
       <ScrollView 
         className="flex-1 px-4"
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 100 }}
+        contentContainerStyle={{ paddingBottom: 120 }}
       >
         
         {/* Today's Focus */}
