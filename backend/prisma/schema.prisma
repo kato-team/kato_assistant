@@ -5,6 +5,19 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+}
+
+// User model synced from Supabase Auth
+model User {
+  id        String   @id // Supabase Auth user ID (UUID)
+  email     String   @unique
+  name      String?
+  avatarUrl String?
+  provider  String // google, apple, email, etc.
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([email])
+  @@map("users")
 }

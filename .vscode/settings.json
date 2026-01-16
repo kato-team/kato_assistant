@@ -1,6 +1,4 @@
 {
-    "cSpell.words": [
-        "Kato",
-        "supabase"
-    ]
+  "cSpell.words": ["Kato", "supabase"],
+  "prisma.pinToPrisma6": true
 }

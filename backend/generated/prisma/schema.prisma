@@ -1,0 +1,23 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// User model synced from Supabase Auth
+model User {
+  id        String   @id // Supabase Auth user ID (UUID)
+  email     String   @unique
+  name      String?
+  avatarUrl String?
+  provider  String // google, apple, email, etc.
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([email])
+  @@map("users")
+}
