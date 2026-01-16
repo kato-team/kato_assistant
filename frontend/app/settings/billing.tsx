@@ -213,7 +213,12 @@ export default function BillingScreen() {
             Referral Program
           </Text>
           
-          <View className="bg-gradient-to-r from-pink-500 to-rose-600 rounded-[20px] p-5" style={styles.cardShadow}>
+          <LinearGradient
+  colors={['#ec4899', '#e11d48']} // pink-500 → rose-600
+  start={{ x: 0, y: 0 }}
+  end={{ x: 1, y: 0 }}
+  style={[styles.cardShadow, { borderRadius: 20, padding: 20 }]}
+>
             <View className="flex-row items-center mb-3">
               <View className="bg-white/20 w-12 h-12 rounded-full items-center justify-center mr-3">
                 <Ionicons name="gift" size={24} color="white" />
@@ -245,7 +250,7 @@ export default function BillingScreen() {
             >
               <Text className="text-pink-600 text-[14px] font-bold">Share with Friends</Text>
             </TouchableOpacity>
-          </View>
+          </LinearGradient>
         </View>
 
         {/* Billing History */}

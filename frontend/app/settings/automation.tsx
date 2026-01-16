@@ -10,7 +10,6 @@ import { LinearGradient } from 'expo-linear-gradient';
  
 export default function AutomationScreen() {
   const router = useRouter();
-  const [aiPaused, setAiPaused] = useState(false);
   const [customPrompt, setCustomPrompt] = useState('');
 
   const AutomationCard = ({ 
@@ -80,50 +79,10 @@ export default function AutomationScreen() {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 40 }}
       >
-        {/* Emergency Controls */}
-        <View className="mt-6">
-          <Text className="text-[13px] font-semibold text-gray-500 uppercase tracking-wide mb-3 px-1">
-            Emergency Controls
-          </Text>
-          
-          <View className="bg-white rounded-md px-4 py-1" style={styles.cardShadow}>
-            <View className="flex-row items-center justify-between py-4">
-              <View className="flex-row items-center flex-1">
-                <View className="w-12 h-12 rounded-[14px] bg-red-50 items-center justify-center mr-3">
-                  <Ionicons name="pause-circle" size={24} color="#EF4444" />
-                </View>
-                <View className="flex-1 pr-3">
-                  <Text className="text-[15px] font-semibold text-gray-900">
-                    Pause AI Assistant
-                  </Text>
-                  <Text className="text-[12px] text-gray-500 mt-0.5">
-                    Temporarily disable all AI actions
-                  </Text>
-                </View>
-              </View>
-              <Switch
-                value={aiPaused}
-                onValueChange={setAiPaused}
-                trackColor={{ false: '#E5E7EB', true: '#FCA5A5' }}
-                thumbColor={aiPaused ? '#EF4444' : '#F3F4F6'}
-              />
-            </View>
-          </View>
-
-          {aiPaused && (
-            <View className="mt-3 bg-red-50 rounded-md p-4 border border-red-100">
-              <View className="flex-row items-start">
-                <Ionicons name="warning" size={18} color="#EF4444" />
-                <Text className="text-[12px] text-red-700 ml-2 flex-1 leading-5">
-                  AI Assistant is currently paused. All calls and messages will not be handled automatically.
-                </Text>
-              </View>
-            </View>
-          )}
-        </View>
+       
 
         {/* Test AI */}
-        <View className="mt-6">
+        {/* <View className="mt-6">
   <Text className="text-[13px] font-semibold text-gray-500 uppercase tracking-wide mb-3 px-1">
     Testing
   </Text>
@@ -137,10 +96,10 @@ export default function AutomationScreen() {
       start={{ x: 0.5, y: 1 }}
       end={{ x: 0.5, y: 0 }}
       style={{ padding: 20 }}
-    >
+    > */}
 
       {/* Header */}
-      <View className="flex-row items-center mb-3">
+      {/* <View className="flex-row items-center mb-3">
         <View className="bg-white/20 w-12 h-12 rounded-full items-center justify-center mr-3">
           <Ionicons name="call" size={24} color="white" />
         </View>
@@ -153,10 +112,10 @@ export default function AutomationScreen() {
             Get a demo call from your AI assistant
           </Text>
         </View>
-      </View>
+      </View> */}
 
       {/* Info Box */}
-      <View className="bg-white/20 rounded-md p-3 mb-3">
+      {/* <View className="bg-white/20 rounded-md p-3 mb-3">
         <Text className="text-white/80 text-[11px] mb-2">
           What happens?
         </Text>
@@ -166,25 +125,25 @@ export default function AutomationScreen() {
           <Text className="text-white text-[12px] flex-1">
             You'll receive a call in 30 seconds
           </Text>
-        </View>
+        </View> */}
 
-        <View className="flex-row mb-2">
+        {/* <View className="flex-row mb-2">
           <Text className="text-white text-[12px] mr-2">•</Text>
           <Text className="text-white text-[12px] flex-1">
             Experience how AI talks to customers
           </Text>
-        </View>
+        </View> */}
 
-        <View className="flex-row">
+        {/* <View className="flex-row">
           <Text className="text-white text-[12px] mr-2">•</Text>
           <Text className="text-white text-[12px] flex-1">
             Test voice, tone, and responses
           </Text>
         </View>
-      </View>
+      </View> */}
 
       {/* CTA */}
-      <View className="bg-white rounded-md py-3 items-center">
+      {/* <View className="bg-white rounded-md py-3 items-center">
         <View className="flex-row items-center">
           <Ionicons name="play" size={16} color="#8B5CF6" />
           <Text className="text-purple-600 text-[14px] font-bold ml-2">
@@ -195,7 +154,7 @@ export default function AutomationScreen() {
 
     </LinearGradient>
   </TouchableOpacity>
-</View>
+</View> */}
 
 
         {/* Custom Prompts */}

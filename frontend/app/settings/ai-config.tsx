@@ -12,8 +12,8 @@ export default function AIConfigScreen() {
   const router = useRouter();
   const [selectedVoice, setSelectedVoice] = useState('female');
   const [selectedTone, setSelectedTone] = useState('professional');
+  const [aiPaused, setAiPaused] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState('English');
-  const [latestNews, setLatestNews] = useState(true);
 
   // Blue Gradient Colors from Image
   const activeGradient = ['#0082ff', '#0082ff'];
@@ -23,6 +23,49 @@ export default function AIConfigScreen() {
       <SettingsHeader title="AI Configuration" onBack={() => router.back()} />
 
       <ScrollView className="flex-1 px-5" showsVerticalScrollIndicator={false}>
+
+         {/* Emergency Controls */}
+        <View className="mt-6">
+          <Text className="text-[13px] font-semibold text-gray-500 uppercase tracking-wide mb-3 px-1">
+            Emergency Controls
+          </Text>
+          
+          <View className="bg-white rounded-md px-4 py-1" style={styles.cardShadow}>
+            <View className="flex-row items-center justify-between py-4">
+              <View className="flex-row items-center flex-1">
+                <View className="w-12 h-12 rounded-[14px] bg-red-50 items-center justify-center mr-3">
+                  <Ionicons name="pause-circle" size={24} color="#EF4444" />
+                </View>
+                <View className="flex-1 pr-3">
+                  <Text className="text-[15px] font-semibold text-gray-900">
+                    Pause AI Assistant
+                  </Text>
+                  <Text className="text-[12px] text-gray-500 mt-0.5">
+                    Temporarily disable all AI actions
+                  </Text>
+                </View>
+              </View>
+              <Switch
+                value={aiPaused}
+                onValueChange={setAiPaused}
+                trackColor={{ false: '#E5E7EB', true: '#FCA5A5' }}
+                thumbColor={aiPaused ? '#EF4444' : '#F3F4F6'}
+              />
+            </View>
+          </View>
+
+          {aiPaused && (
+            <View className="mt-3 bg-red-50 rounded-md p-4 border border-red-100">
+              <View className="flex-row items-start">
+                <Ionicons name="warning" size={18} color="#EF4444" />
+                <Text className="text-[12px] text-red-700 ml-2 flex-1 leading-5">
+                  AI Assistant is currently paused. All calls and messages will not be handled automatically.
+                </Text>
+              </View>
+            </View>
+          )}
+        </View>
+
         <View className="bg-white rounded-md p-6 mt-4 shadow-sm" style={styles.cardShadow}>
           
           {/* Voice Section */}
@@ -103,22 +146,7 @@ export default function AIConfigScreen() {
             </TouchableOpacity>
           </View>
 
-          <View className="h-[1px] bg-gray-100 w-full mb-5" />
-
-          {/* Latest News Toggle */}
-          <View className="flex-row items-center justify-between">
-            <View>
-              <Text className="text-[14px] font-bold text-gray-800">Latest News</Text>
-              <Text className="text-[12px] text-gray-400">Business news updates</Text>
-            </View>
-            <Switch
-              value={latestNews}
-              onValueChange={setLatestNews}
-              trackColor={{ false: '#E5E7EB', true: '#007AFF' }}
-              thumbColor={'#FFF'}
-              ios_backgroundColor="#E5E7EB"
-            />
-          </View>
+          {/* <View className="" /> */}
         </View>
       </ScrollView>
     </SafeAreaView>

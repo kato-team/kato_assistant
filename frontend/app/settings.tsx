@@ -1,41 +1,36 @@
 import React from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Ionicons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import { LinearGradient } from 'expo-linear-gradient';
 
 // Helper Component for Menu Items
 const SettingItem = ({ 
   icon, 
   title, 
-  subtitle, 
   iconBg, 
   iconColor,
   onPress,
   isLast = false
 }: any) => (
   <TouchableOpacity 
-    className={`flex-row items-center py-4 ${!isLast ? 'border-b border-gray-100' : ''}`}
-    activeOpacity={0.7}
+    className={`flex-row items-center py-4 px-4 ${!isLast ? 'border-b border-white border-opacity-20' : ''}`}
+    activeOpacity={0.6}
     onPress={onPress}
   >
     {/* Icon Container */}
     <View 
-      className="w-12 h-12 rounded-xl items-center justify-center mr-4"
+      className="w-10 h-10 rounded-lg items-center justify-center mr-3"
       style={{ backgroundColor: iconBg }}
     >
-      <Ionicons name={icon} size={22} color={iconColor} />
+      <MaterialCommunityIcons name={icon} size={20} color={iconColor} />
     </View>
     
-    {/* Text Info */}
-    <View className="flex-1">
-      <Text className="text-[16px] font-bold text-gray-900 mb-0.5">
-        {title}
-      </Text>
-      <Text className="text-[12px] text-gray-400 font-medium">
-        {subtitle}
-      </Text>
-    </View>
+    {/* Text */}
+    <Text className="text-[15px] font-semibold text-gray-800">
+      {title}
+    </Text>
   </TouchableOpacity>
 );
 
@@ -43,146 +38,157 @@ export default function SettingsScreen() {
   const router = useRouter();
 
   return (
-    <SafeAreaView className="flex-1 bg-[#F2F4F6]">
+    <SafeAreaView className="flex-1 bg-gray-50">
       
-      {/* Header (Back Button Only) */}
-      <View className="px-6 pt-2 pb-4">
+      {/* Header with Back Button */}
+      <View className="px-6 pt-2 pb-4 flex-row items-center">
         <TouchableOpacity 
           onPress={() => router.back()}
-          className="w-10 h-10 bg-white items-center justify-center rounded-full shadow-sm"
-          style={styles.smallShadow}
+          className="w-8 h-8 items-center justify-center"
         >
-          <Ionicons name="chevron-back" size={24} color="#3B82F6" />
+          <MaterialCommunityIcons name="chevron-left" size={24} color="#3B82F6" />
         </TouchableOpacity>
       </View>
 
       <ScrollView 
-        className="flex-1 px-5" 
+        className="flex-1 px-6" 
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 40 }}
       >
         
-        {/* ================= CARD 1: Profile + Main Options ================= */}
-        {/* Top Left is heavily rounded (100), others are normal (30) */}
-        <View 
-          style={[styles.cardShadow, { 
-            borderTopLeftRadius: 80, 
-            borderTopRightRadius: 15, 
-            borderBottomLeftRadius: 15, 
-            borderBottomRightRadius: 15 
-          }]} 
-          className="bg-white p-6 mb-6 relative"
+        {/* ================= CARD 1: Profile with Gradient ================= */}
+        <LinearGradient
+          colors={['#ffffff', '#ffffff']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={[
+            styles.cardShadow,
+            {
+              borderTopLeftRadius: 70,
+              borderTopRightRadius: 20,
+              borderBottomRightRadius: 20,
+              borderBottomLeftRadius: 20,
+              marginBottom: 13,
+              padding: 17,
+              overflow: 'hidden'
+            }
+          ]}
         >
-           {/* Pro Badge (Absolute Positioned) */}
-           <View className="absolute top-6 right-6">
-             <Text className="text-green-500 font-bold text-[11px]">• Pro User</Text>
-           </View>
+          {/* Pro Badge */}
+          <View className="absolute top-4 right-4">
+            <Text className="text-green-600 font-bold text-[11px]">•Pro User</Text>
+          </View>
 
-           {/* --- Profile Section --- */}
-           <View className="flex-row items-center mt-1 mb-8 ml-0">
-              {/* Avatar Area */}
-              <View className="mr-4 shadow-sm">
-                <View className="w-20 h-20 rounded-full bg-gray-200 border-4 border-gray-50 overflow-hidden">
-                  <Image 
-                    source={{ uri: 'https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg' }} 
-                    className="w-full h-full"
-                    resizeMode="cover"
-                  />
-                </View>
-              </View>
-
-              {/* Name & Edit Icon */}
-              <View className="flex-1 justify-center">
-                 <Text className="text-xl font-extrabold text-gray-900">John Deo</Text>
-                 <Text className="text-xs text-gray-400 underline decoration-gray-300 mb-1">
-                    johndeo@example.com
-                 </Text>
-              </View>
-
-              {/* Orange Edit Button */}
-              <TouchableOpacity className="w-9 h-9 bg-orange-50 rounded-full items-center justify-center border border-orange-100 mr-2">
-                  <Ionicons name="create-outline" size={18} color="#F97316" />
-              </TouchableOpacity>
-           </View>
-
-           {/* --- Divider Separator --- */}
-           <View className="h-[1px] bg-gray-100 w-full mb-2" />
-
-           {/* --- Options Section (Merged inside Card 1) --- */}
-           <View>
-              <SettingItem 
-                icon="options" // Square icon like "AI Config"
-                title="AI Configuration" 
-                subtitle="Voice, tone, Language Preferences"
-                iconBg="#FFF7ED" 
-                iconColor="#4B5563"
-                onPress={() => router.push('/settings/ai-config')}
+          {/* Profile Section */}
+          <View className="flex-row items-center mt-2">
+            {/* Avatar */}
+            <View 
+              className="w-20 h-20 rounded-full bg-white border-4 border-white overflow-hidden mr-4"
+              style={{ borderRadius: 80 }}
+            >
+              <Image 
+                source={{ uri: 'https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg' }} 
+                className="w-full h-full"
+                resizeMode="cover"
               />
+            </View>
 
-              <SettingItem 
-                icon="call" 
-                title="Call Settings" 
-                subtitle="Busy Calls, Voice preferences"
-                iconBg="#E0F2FE" 
-                iconColor="#0EA5E9"
-                onPress={() => router.push('/settings/call-settings')}
-              />
+            {/* Name & Email */}
+            <View className="flex-1 justify-center">
+              <Text className="text-lg font-bold text-gray-900">John Deo</Text>
+              <Text className="text-xs text-gray-600 mt-1">
+                johndeo@example.com
+              </Text>
+            </View>
 
-              <SettingItem 
-                icon="git-network" // Represents Automation/Robot arm
-                title="Automation Rules" 
-                subtitle="Custom Prompts and Actions"
-                iconBg="#FEF9C3" 
-                iconColor="#CA8A04"
-                onPress={() => router.push('/settings/automation')}
-              />
+            {/* Edit Button */}
+            <TouchableOpacity className="w-10 h-10 bg-orange-300 rounded-lg items-center justify-center">
+              <MaterialCommunityIcons name="pencil" size={18} color="#ffffff" />
+            </TouchableOpacity>
+          </View>
 
-              <SettingItem 
-                icon="notifications" 
-                title="Notifications" 
-                subtitle="Alerts & summaries"
-                iconBg="#FFEDD5" 
-                iconColor="#F59E0B"
-                isLast={true} // Removes border for the last item in this group
-                onPress={() => router.push('/settings/notifications')}
-              />
-           </View>
-        </View>
+          {/* Settings inside gradient card */}
+          <View className="mt-2">
+            <SettingItem 
+              icon="folder-cog"
+              title="AI Configuration"
+              iconBg="#7c3aed4c"
+              iconColor="#7C3AED"
+              onPress={() => router.push('/settings/ai-config')}
+            />
 
+            <SettingItem 
+              icon="phone"
+              title="Call Settings"
+              iconBg="#3b83f645"
+              iconColor="#3B82F6"
+              onPress={() => router.push('/settings/call-settings')}
+            />
 
-        {/* ================= CARD 2: Billing + Help + LOGOUT ================= */}
-        <View style={[styles.cardShadow, { borderRadius: 15 }]} className="bg-white px-5 py-2 mb-8">
-          
+            <SettingItem 
+              icon="robot"
+              title="Automation Rules"
+              iconBg="#ec489a37"
+              iconColor="#EC4899"
+              onPress={() => router.push('/settings/automation')}
+            />
+
+            <SettingItem 
+              icon="bell"
+              title="Notifications"
+              iconBg="#f59f0b43"
+              iconColor="#F59E0B"
+              isLast={true}
+              onPress={() => router.push('/settings/notifications')}
+            />
+          </View>
+        </LinearGradient>
+
+        {/* ================= CARD 2: More Options ================= */}
+        <View style={[styles.cardShadow, { borderRadius: 16 }]} className="bg-white px-6 py-2 mb-3">
           <SettingItem 
-            icon="wallet" 
-            title="Billing & Subscriptions" 
-            subtitle="Professional Plan"
-            iconBg="#ECFCCB" 
-            iconColor="#65A30D"
+            icon="link-variant"
+            title="Integrations"
+            iconBg="#DBEAFE"
+            iconColor="#0284C7"
+            onPress={() => router.push('/settings/integrations')}
+          />
+
+          <SettingItem 
+            icon="wallet"
+            title="Billing & Subscriptions"
+            iconBg="#FCD34D"
+            iconColor="#D97706"
             onPress={() => router.push('/settings/billing')}
           />
 
           <SettingItem 
-            icon="headset" 
-            title="Help & Support" 
-            subtitle="Help & Support about application"
-            iconBg="#FFE4E6" 
-            iconColor="#F43F5E"
-            onPress={() => router.push('/settings/help')}
+            icon="shield-check"
+            title="Privacy & Security"
+            iconBg="#FBBF24"
+            iconColor="#F59E0B"
+            onPress={() => router.push('/settings/privacy')}
           />
 
-          {/* --- Logout Button (Moved INSIDE Card 2) --- */}
-          <View className="pt-2 pb-4 mt-2 border-t border-gray-100">
-            <TouchableOpacity 
-              onPress={() => console.log("Logout")}
-              activeOpacity={0.6}
-              className="items-center justify-center py-2"
-            >
-              <Text className="text-red-500 font-bold text-[16px]">Logout</Text>
-            </TouchableOpacity>
-          </View>
-
+          <SettingItem 
+            icon="headphones"
+            title="Help & Support"
+            iconBg="#FDBA74"
+            iconColor="#EA580C"
+            isLast={true}
+            onPress={() => router.push('/settings/help')}
+          />
         </View>
+
+        {/* ================= Logout Button ================= */}
+        <TouchableOpacity 
+          onPress={() => console.log("Logout")}
+          activeOpacity={0.6}
+          style={[styles.cardShadow, { borderRadius: 16 }]}
+          className="bg-white px-6 py-4 items-center justify-center"
+        >
+          <Text className="text-red-500 font-bold text-[16px]">Logout</Text>
+        </TouchableOpacity>
 
       </ScrollView>
     </SafeAreaView>
@@ -191,17 +197,10 @@ export default function SettingsScreen() {
 
 const styles = StyleSheet.create({
   cardShadow: {
-    shadowColor: '#9CA3AF',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.08,
-    shadowRadius: 8,
-    elevation: 0.5, 
-  },
-  smallShadow: {
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 1,
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
     elevation: 0.5,
   }
 });

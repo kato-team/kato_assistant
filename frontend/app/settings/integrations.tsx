@@ -13,9 +13,7 @@ export default function IntegrationsScreen() {
   const [gmailConnected, setGmailConnected] = useState(true);
   const [calendarConnected, setCalendarConnected] = useState(true);
   const [taskConnected, setTaskConnected] = useState(false);
-  const [phoneConnected, setPhoneConnected] = useState(true);
-  const [contactMemory, setContactMemory] = useState(true);
-
+const [latestNews, setLatestNews] = useState(true);
   const IntegrationCard = ({ 
     icon, 
     title, 
@@ -151,88 +149,8 @@ export default function IntegrationsScreen() {
           />
         </View>
 
-        {/* Phone Integration */}
-        <View className="mt-6">
-          <Text className="text-[13px] font-semibold text-gray-500 uppercase tracking-wide mb-3 px-1">
-            Phone Integration
-          </Text>
-          
-          <IntegrationCard
-            icon="call"
-            title="Business Phone"
-            subtitle="Connect your business number"
-            connected={phoneConnected}
-            onToggle={setPhoneConnected}
-            iconBg="#F5F3FF"
-            iconColor="#8B5CF6"
-            badge="Active"
-          />
 
-          {phoneConnected && (
-            <View className="bg-blue-50 rounded-[16px] p-4 mb-3 border border-blue-100">
-              <View className="flex-row items-start mb-2">
-                <Ionicons name="information-circle" size={18} color="#3B82F6" />
-                <Text className="text-[12px] font-semibold text-blue-700 ml-2">
-                  Call Forwarding Active
-                </Text>
-              </View>
-              <Text className="text-[11px] text-blue-600 leading-4 ml-6">
-                Your business calls are being forwarded to AI assistant when you're busy.
-              </Text>
-            </View>
-          )}
-        </View>
-
-        {/* Contact Memory */}
-        <View className="mt-6">
-          <Text className="text-[13px] font-semibold text-gray-500 uppercase tracking-wide mb-3 px-1">
-            Contact Management
-          </Text>
-          
-          <View className="bg-white rounded-[18px] px-4 py-1" style={styles.cardShadow}>
-            <View className="flex-row items-center justify-between py-4 border-b border-gray-50">
-              <View className="flex-row items-center flex-1">
-                <View className="w-12 h-12 rounded-[14px] bg-cyan-50 items-center justify-center mr-3">
-                  <Ionicons name="people" size={22} color="#06B6D4" />
-                </View>
-                <View className="flex-1 pr-3">
-                  <Text className="text-[15px] font-semibold text-gray-900">
-                    Contact Memory
-                  </Text>
-                  <Text className="text-[12px] text-gray-500 mt-0.5">
-                    Remember contacts for 30 days
-                  </Text>
-                </View>
-              </View>
-              <Switch
-                value={contactMemory}
-                onValueChange={setContactMemory}
-                trackColor={{ false: '#E5E7EB', true: '#A5F3FC' }}
-                thumbColor={contactMemory ? '#06B6D4' : '#F3F4F6'}
-              />
-            </View>
-            
-            <TouchableOpacity 
-              className="flex-row items-center justify-between py-4"
-              activeOpacity={0.7}
-            >
-              <View className="flex-row items-center flex-1">
-                <View className="w-12 h-12 rounded-[14px] bg-amber-50 items-center justify-center mr-3">
-                  <Ionicons name="star" size={22} color="#F59E0B" />
-                </View>
-                <View className="flex-1">
-                  <Text className="text-[15px] font-semibold text-gray-900">
-                    VIP Customers
-                  </Text>
-                  <Text className="text-[12px] text-gray-500 mt-0.5">
-                    Tag important contacts
-                  </Text>
-                </View>
-              </View>
-              <Ionicons name="chevron-forward" size={18} color="#C7C7CC" />
-            </TouchableOpacity>
-          </View>
-        </View>
+        
 
         {/* Coming Soon */}
         <View className="mt-6">
@@ -299,6 +217,33 @@ export default function IntegrationsScreen() {
             iconColor="#10B981"
             disabled={true}
           />
+          <IntegrationCard
+            icon="newspaper-outline"
+            title="Latest News"
+            subtitle="Business news updates"
+            connected={false}
+            iconBg="#f0f0fd"
+            iconColor="#3710b9"
+            disabled={true}
+          />
+
+          {/* Latest News Toggle
+          <View className="bg-white rounded-md p-6 mt-4 shadow-sm" style={styles.cardShadow}>
+          <View className="flex-row items-center justify-between">
+            <View>
+              <Text className="text-[14px] font-bold text-gray-800">Latest News</Text>
+              <Text className="text-[12px] text-gray-400">Business news updates</Text>
+            </View>
+            <Switch
+              value={latestNews}
+              onValueChange={setLatestNews}
+              trackColor={{ false: '#E5E7EB', true: '#007AFF' }}
+              thumbColor={'#FFF'}
+              ios_backgroundColor="#E5E7EB"
+            />
+          </View>
+          </View> */}
+
         </View>
 
         {/* Info Box */}
